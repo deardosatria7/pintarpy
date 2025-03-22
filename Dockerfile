@@ -24,8 +24,8 @@ WORKDIR /app
 # Salin hasil build dari stage builder
 COPY --from=builder /app ./
 
-# Expose port 3000 untuk Next.js
-EXPOSE 3000
+# Expose port 7000 untuk Next.js
+EXPOSE 7000
 
 # Jalankan aplikasi
 CMD ["npm", "run", "start", "--", "-H", "0.0.0.0"]
