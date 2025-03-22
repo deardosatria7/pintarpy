@@ -28,4 +28,4 @@ COPY --from=builder /app ./
 EXPOSE 3000
 
 # Jalankan aplikasi
-CMD ["npm", "start"]
+CMD ["npm", "run", "start", "--", "-H", "0.0.0.0"]
