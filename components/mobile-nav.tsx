@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {Menu, X} from "lucide-react";
+import {Menu} from "lucide-react";
 
 import {Button} from "@/components/ui/button";
 import {
@@ -12,7 +12,6 @@ import {
   SheetClose,
   SheetTitle,
 } from "@/components/ui/sheet";
-import {SidebarAnimation} from "./animation/animation-collection";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);

@@ -277,9 +277,9 @@ print(sapa("Programmer"))`;
                         Mahasiswa Informatika
                       </p>
                       <p className="mt-2 md:mt-3 text-sm md:text-base">
-                        "PintarPy sangat membantu saya memahami konsep dasar
+                        &#34;PintarPy sangat membantu saya memahami konsep dasar
                         Python. Playground interaktifnya membuat saya bisa
-                        langsung praktik tanpa ribet instalasi."
+                        langsung praktik tanpa ribet instalasi.&#34;
                       </p>
                     </div>
                   </div>
@@ -297,9 +297,9 @@ print(sapa("Programmer"))`;
                         Data Analyst
                       </p>
                       <p className="mt-2 md:mt-3 text-sm md:text-base">
-                        "Sebagai profesional yang ingin belajar Python untuk
+                        &#34;Sebagai profesional yang ingin belajar Python untuk
                         analisis data, PintarPy menyediakan materi yang tepat
-                        dan mudah dipahami. Sangat direkomendasikan!"
+                        dan mudah dipahami. Sangat direkomendasikan!&#34;
                       </p>
                     </div>
                   </div>
