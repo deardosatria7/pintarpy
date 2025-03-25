@@ -1,9 +1,9 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {ArrowRight, Code, BookOpen, Users} from "lucide-react";
 import {ThemeToggle} from "@/components/theme-toggle";
 import {MobileNav} from "@/components/mobile-nav";
 import {ScrollAnimation} from "@/components/animation/animation-collection";
-import PyScriptTerminal from "@/components/pyscipt-terminal";
 
 export default function Home() {
   const defaultCode: string = `# Selamat datang di PintarPy!
@@ -19,6 +19,12 @@ def sapa(nama):
     return f"Halo {nama}, selamat belajar Python!"
 
 print(sapa("Programmer"))`;
+
+  // add dynamic import
+  const PyScriptTerminal = dynamic(
+    () => import("@/components/pyscipt-terminal"),
+    {ssr: true} // this is server side rendered
+  );
 
   return (
     <div className="flex flex-col justify-center items-center">
