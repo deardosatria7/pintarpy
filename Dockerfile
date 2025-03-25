@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install --force
+RUN npm install
 
 # Salin seluruh proyek
 COPY . .
@@ -25,7 +25,7 @@ WORKDIR /app
 COPY --from=builder /app ./
 
 # Expose port 7000 untuk Next.js
-EXPOSE 7000
+EXPOSE 3000
 
 # Jalankan aplikasi
 CMD ["npm", "run", "start", "--", "-H", "0.0.0.0"]

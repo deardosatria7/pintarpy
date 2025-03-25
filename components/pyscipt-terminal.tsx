@@ -49,6 +49,7 @@ export default function PyScriptTerminal({
         <div
           dangerouslySetInnerHTML={{
             __html: `
+            <div>
             <style>
                 /* Styling untuk Editor */
                 .mpy-editor-box,
@@ -115,6 +116,7 @@ export default function PyScriptTerminal({
             </script>
 
             <py-terminal></py-terminal>
+            </div>
           `,
           }}
         />
