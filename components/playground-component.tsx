@@ -10,8 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {ArrowLeftCircle, Code} from "lucide-react";
-import Link from "next/link";
+import {Code} from "lucide-react";
 import BackButton from "./back-button";
 
 // Import PyScriptTerminal dynamically with SSR enabled
