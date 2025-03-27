@@ -9,7 +9,7 @@ interface PyScriptTerminalProps {
 }
 
 export default function PyScriptTerminal({
-  code = 'print("Ayo belajar Python!")', // Default kode jika tidak ada input
+  code = 'print("Hello World!")', // Default kode jika tidak ada input
 }: PyScriptTerminalProps) {
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -47,6 +47,7 @@ export default function PyScriptTerminal({
         </>
       ) : (
         <div
+          className="z-10"
           dangerouslySetInnerHTML={{
             __html: `
             <div>
@@ -73,7 +74,7 @@ export default function PyScriptTerminal({
                 /* Styling untuk Tombol Run */
                 .mpy-editor-run-button,
                 .py-editor-run-button {
-                    bottom: 0.5rem;
+                    bottom: 0rem;
                     right: 0rem;
                     display: flex;
                     position: absolute;
