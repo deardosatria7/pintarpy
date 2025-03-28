@@ -75,11 +75,11 @@ export default function SignIn() {
                 Sign in with GitHub
               </Button>
             </form>
-            <BackButton className="hover:cursor-pointer dark:text-neutral-500 dark:hover:text-white text-neutral-200" />
+            <BackButton className="hover:cursor-pointer text-neutral-500 dark:hover:text-white" />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
-          <div className="text-center text-sm dark:text-neutral-500 text-gray-200 italic">
+          <div className="text-center text-sm text-neutral-500 italic">
             &#34;Great things start with small steps.&#34;
           </div>
         </CardFooter>
