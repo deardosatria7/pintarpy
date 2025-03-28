@@ -1,11 +1,32 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import {ArrowRight, Code, BookOpen, Users} from "lucide-react";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Button} from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  ArrowRight,
+  Code,
+  BookOpen,
+  Users,
+  LogOut,
+  Settings,
+  User,
+} from "lucide-react";
 import {ThemeToggle} from "@/components/theme-toggle";
 import {MobileNav} from "@/components/mobile-nav";
 import {ScrollAnimation} from "@/components/animation/animation-collection";
+import {auth, signOut} from "@/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
+
   const defaultCode: string = `# Selamat datang di PintarPy!
 print("Halo, Dunia Python!")
 
@@ -39,38 +60,93 @@ print(sapa("Programmer"))`;
           <nav className="hidden md:flex items-center gap-6">
             <Link
               href="#features"
-              className="text-sm font-medium hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               Fitur
             </Link>
             <Link
               href="#how-it-works"
-              className="text-sm font-medium hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               Cara Kerja
             </Link>
             <Link
               href="#faq"
-              className="text-sm font-medium hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               FAQ
             </Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-4">
             <ThemeToggle />
-            <Link
-              href="/login"
-              className="text-sm font-medium hover:text-primary hidden md:inline-flex focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-            >
-              Masuk
-            </Link>
-            <Link
-              href="/register"
-              className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 md:px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus:outline-none focus-visible:ring-offset-2"
-            >
-              <span className="hidden md:block">Daftar Gratis</span>
-              <span className="block md:hidden">Daftar</span>
-            </Link>
+
+            {session?.user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage
+                        src={session.user.image || ""}
+                        alt={session.user.name || "User"}
+                      />
+                      <AvatarFallback>
+                        {session.user.name?.charAt(0) || "U"}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {session.user.name}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {session.user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profil</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Pengaturan</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span
+                      onClick={async () => {
+                        "use server";
+                        await signOut();
+                      }}
+                    >
+                      Keluar
+                    </span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link href="/login" className="hidden md:block">
+                  <Button variant="ghost" size="sm">
+                    Masuk
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button size="sm">
+                    <span className="hidden md:block">Daftar Gratis</span>
+                    <span className="block md:hidden">Daftar</span>
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
