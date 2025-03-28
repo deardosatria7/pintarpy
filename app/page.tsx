@@ -139,7 +139,7 @@ print(sapa("Programmer"))`;
                     Masuk
                   </Button>
                 </Link>
-                <Link href="/register">
+                <Link href="/login">
                   <Button size="sm">
                     <span className="hidden md:block">Daftar Gratis</span>
                     <span className="block md:hidden">Daftar</span>
@@ -468,7 +468,7 @@ print(sapa("Programmer"))`;
                 </div>
                 <div className="flex flex-col justify-center sm:flex-row gap-3 w-full max-w-md mx-auto">
                   <Link
-                    href="/register"
+                    href="/login"
                     className="inline-flex h-10 items-center justify-center rounded-md bg-primary-foreground px-4 sm:px-8 text-sm font-medium text-primary shadow transition-colors hover:bg-primary-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring w-full sm:w-auto focus:outline-none focus-visible:ring-offset-2"
                   >
                     Daftar Gratis
