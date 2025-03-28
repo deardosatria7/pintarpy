@@ -1,5 +1,6 @@
 import {signIn} from "@/auth";
 import {Button} from "@/components/ui/button";
+import BackButton from "@/components/back-button";
 import {
   Card,
   CardContent,
@@ -8,12 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
 import {Github} from "lucide-react";
 
 export default function SignIn() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-black">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
@@ -26,11 +26,15 @@ export default function SignIn() {
               action={async () => {
                 "use server";
                 await signIn("google", {
-                  redirectTo: `${process.env.URL_ORIGIN}/playground`,
+                  redirectTo: `${process.env.URL_ORIGIN}`,
                 });
               }}
             >
-              <Button type="submit" variant="outline" className="w-full h-11">
+              <Button
+                type="submit"
+                variant="outline"
+                className="w-full h-11 hover:cursor-pointer"
+              >
                 <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -58,23 +62,25 @@ export default function SignIn() {
               action={async () => {
                 "use server";
                 await signIn("github", {
-                  redirectTo: `${process.env.URL_ORIGIN}/playground`,
+                  redirectTo: `${process.env.URL_ORIGIN}`,
                 });
               }}
             >
-              <Button type="submit" variant="outline" className="w-full h-11">
+              <Button
+                type="submit"
+                variant="outline"
+                className="w-full h-11 hover:cursor-pointer"
+              >
                 <Github className="mr-2 h-5 w-5" />
                 Sign in with GitHub
               </Button>
             </form>
+            <BackButton className="hover:cursor-pointer dark:text-neutral-500 dark:hover:text-white text-neutral-200" />
           </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
-          <div className="text-center text-sm">
-            Don&#39;t have an account?{" "}
-            <Link href="/register" className="text-primary hover:underline">
-              Sign up
-            </Link>
+          <div className="text-center text-sm dark:text-neutral-500 text-gray-200 italic">
+            &#34;Great things start with small steps.&#34;
           </div>
         </CardFooter>
       </Card>

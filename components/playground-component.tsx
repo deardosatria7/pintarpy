@@ -95,7 +95,7 @@ def decrypt(encrypted_text, key):
     return decrypted
 
 # Contoh penggunaan
-password = "SUPER_STRONG_PASSWORD"
+password = "password_anda"
 key = "YOUR_KEY"  # Kunci enkripsi
 
 # Enkripsi

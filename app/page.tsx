@@ -32,14 +32,16 @@ print("Halo, Dunia Python!")
 
 # Mari belajar variabel
 nama = "PintarPy"
-tahun = 2024
+tahun = 2025
 print(f"{nama} adalah platform belajar Python terbaik di {tahun}")
 
 # Coba fungsi sederhana
 def sapa(nama):
     return f"Halo {nama}, selamat belajar Python!"
 
-print(sapa("Programmer"))`;
+print(sapa(${
+    session?.user?.name ? `"${session.user.name}"` : `"Programmer"`
+  }))`;
 
   // add dynamic import
   const PyScriptTerminal = dynamic(
@@ -85,7 +87,7 @@ print(sapa("Programmer"))`;
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
+                    className="relative h-8 w-8 rounded-full hover:cursor-pointer"
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
@@ -100,7 +102,7 @@ print(sapa("Programmer"))`;
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
+                    <div className="flex flex-col space-y-2">
                       <p className="text-sm font-medium leading-none">
                         {session.user.name}
                       </p>
@@ -110,16 +112,16 @@ print(sapa("Programmer"))`;
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="hover:cursor-pointer">
                     <User className="mr-2 h-4 w-4" />
                     <span>Profil</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="hover:cursor-pointer">
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Pengaturan</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="hover:cursor-pointer">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span
                       onClick={async () => {
@@ -135,12 +137,16 @@ print(sapa("Programmer"))`;
             ) : (
               <>
                 <Link href="/login" className="hidden md:block">
-                  <Button variant="ghost" size="sm">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hover:cursor-pointer"
+                  >
                     Masuk
                   </Button>
                 </Link>
                 <Link href="/login">
-                  <Button size="sm">
+                  <Button size="sm" className="hover:cursor-pointer">
                     <span className="hidden md:block">Daftar Gratis</span>
                     <span className="block md:hidden">Daftar</span>
                   </Button>
