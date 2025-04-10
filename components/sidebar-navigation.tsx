@@ -71,7 +71,6 @@ export default function SidebarNavigation({
   pageTitle = "Dashboard",
 }: SidebarNavigationProps) {
   const pathname = usePathname()
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
 
   return (
     <SidebarProvider>
