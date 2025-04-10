@@ -63,6 +63,21 @@ export default async function CoursesPage() {
     courses.reduce((acc, course) => acc + course.progress, 0) / courses.length
   );
 
+  // Ambil course yang status-nya "in_progress" dan urutkan berdasarkan progress tertinggi
+  const inProgressCourses = courses
+    .filter((course) => course.status === "in_progress")
+    .sort((a, b) => b.progress - a.progress);
+
+  // Ambil course terakhir yang dikerjakan atau fallback ke yang pertama
+  const currentCourse = inProgressCourses[0] ??
+    courses[0] ?? {
+      title: "1. Pengenalan Python",
+      description: "Kursus belum tersedia untuk saat ini.",
+      duration: "0 menit",
+      progress: 0,
+      status: "in-progress",
+    };
+
   return (
     <SidebarNavigation
       name={userData.name}
@@ -181,19 +196,21 @@ export default async function CoursesPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 dark:text-purple-300">
                 <BookOpen className="h-5 w-5 text-purple-700 dark:text-purple-400" />
-                <span>3. Struktur Kontrol</span>
+                <span>{currentCourse.title}</span>
               </CardTitle>
               <CardDescription className="dark:text-gray-400">
-                Lanjutkan pembelajaran Anda tentang struktur kontrol dalam
-                Python
+                {currentCourse.description}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Anda telah menyelesaikan 25% dari materi ini. Lanjutkan untuk
-                mempelajari perulangan for dan while.
+                Anda telah menyelesaikan {currentCourse.progress}% dari materi
+                ini.
+                {currentCourse.progress < 100 &&
+                  " Lanjutkan untuk mempelajari topik berikutnya."}
               </p>
             </CardContent>
+
             <CardFooter>
               <Button className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:hover:bg-purple-700">
                 Lanjutkan Belajar
