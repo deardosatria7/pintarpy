@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import prisma from "@/lib/prisma";
+import Link from "next/link";
 
 export default async function CoursesPage() {
   const session = await auth();
@@ -27,6 +28,7 @@ export default async function CoursesPage() {
   };
 
   const allCourses = await prisma.course.findMany();
+  console.log(allCourses);
 
   const progressData = await prisma.userCourseProgress.findMany({
     where: {
@@ -53,7 +55,7 @@ export default async function CoursesPage() {
       progress: userProgress?.progress ?? 0,
       status:
         userProgress?.status ?? course.title == "1. Pengenalan Python"
-          ? "in-progress"
+          ? "in_progress"
           : "locked",
     };
   });
@@ -75,8 +77,13 @@ export default async function CoursesPage() {
       description: "Kursus belum tersedia untuk saat ini.",
       duration: "0 menit",
       progress: 0,
-      status: "in-progress",
+      status: "in_progress",
     };
+
+  const titleToHrefMap: Record<string, string> = {
+    "1. Pengenalan Python": "/courses/introduction",
+    // Tambahkan sesuai kebutuhan
+  };
 
   return (
     <SidebarNavigation
@@ -173,13 +180,16 @@ export default async function CoursesPage() {
                       : "Sedang Berlangsung"}
                   </Badge>
                   <Button
+                    asChild
                     variant="ghost"
                     size="sm"
-                    className="text-purple-700 hover:text-purple-900 hover:bg-purple-100 dark:text-purple-400 dark:hover:text-purple-300 dark:hover:bg-purple-900/30"
+                    className="text-purple-700 hover:text-purple-900 hover:bg-purple-100 dark:text-purple-400 dark:hover:text-purple-300 dark:hover:bg-purple-900/30 hover:cursor-pointer"
                     disabled={course.status === "locked"}
                   >
-                    {course.status === "completed" ? "Ulangi" : "Lanjutkan"}
-                    <ChevronRight className="h-4 w-4 ml-1" />
+                    <Link href={titleToHrefMap[course.title] || "#"}>
+                      {course.status === "completed" ? "Ulangi" : "Lanjutkan"}
+                      <ChevronRight className="h-4 w-4 ml-1" />
+                    </Link>
                   </Button>
                 </div>
               </CardFooter>
@@ -212,7 +222,7 @@ export default async function CoursesPage() {
             </CardContent>
 
             <CardFooter>
-              <Button className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:hover:bg-purple-700">
+              <Button className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:hover:bg-purple-700 dark:text-white hover:cursor-pointer">
                 Lanjutkan Belajar
                 <ChevronRight className="h-4 w-4 ml-1" />
               </Button>

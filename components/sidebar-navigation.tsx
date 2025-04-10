@@ -1,9 +1,17 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Home, Settings, HelpCircle, ChevronDown, Code } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Home,
+  Settings,
+  HelpCircle,
+  ChevronDown,
+  Code,
+  LogOutIcon,
+  FlaskConical,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -20,10 +28,11 @@ import {
   SidebarRail,
   SidebarTrigger,
   SidebarInset,
-} from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ThemeToggle } from "./theme-toggle"
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "./theme-toggle";
+import { signOut } from "next-auth/react";
 
 // Navigation data structure dengan penambahan grup "Materi"
 const navigationItems = [
@@ -37,8 +46,11 @@ const navigationItems = [
     icon: Code,
     href: "/courses",
     subItems: [
-      { title: "Pengenalan Python", href: "/courses/pengenalan-python" },
-      { title: "Variabel dan Tipe Data", href: "/courses/variabel-dan-tipe-data" },
+      { title: "Pengenalan Python", href: "/courses/introduction" },
+      {
+        title: "Variabel dan Tipe Data",
+        href: "/courses/variabel-dan-tipe-data",
+      },
       { title: "Struktur Kontrol", href: "/courses/struktur-kontrol" },
       { title: "Fungsi", href: "/courses/fungsi" },
       { title: "Array", href: "/courses/struktur-data" },
@@ -49,18 +61,32 @@ const navigationItems = [
     ],
   },
   {
+    title: "Playground",
+    icon: FlaskConical,
+    href: "/playground",
+  },
+  {
     title: "Pengaturan",
     icon: Settings,
     href: "/settings",
   },
-]
+  {
+    title: "Logout akun",
+    icon: LogOutIcon,
+    href: "#",
+    onclick: () => {
+      // Logout logic here
+      signOut();
+    },
+  },
+];
 
 interface SidebarNavigationProps {
-  name: string
-  email: string
-  image: string
-  children: React.ReactNode
-  pageTitle?: string
+  name: string;
+  email: string;
+  image: string;
+  children: React.ReactNode;
+  pageTitle?: string;
 }
 
 export default function SidebarNavigation({
@@ -70,7 +96,7 @@ export default function SidebarNavigation({
   children,
   pageTitle = "Dashboard",
 }: SidebarNavigationProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <SidebarProvider>
@@ -78,8 +104,10 @@ export default function SidebarNavigation({
         <Sidebar className="border-r">
           <SidebarHeader className="px-4 py-3">
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2"><Code className="h-6 w-6 text-primary" />
-              <span className="font-semibold text-xl">PintarPy</span></div>
+              <div className="flex items-center gap-2">
+                <Code className="h-6 w-6 text-primary" />
+                <span className="font-semibold text-xl">PintarPy</span>
+              </div>
               <ThemeToggle />
             </div>
           </SidebarHeader>
@@ -91,7 +119,10 @@ export default function SidebarNavigation({
                   <SidebarMenuItem key={item.title}>
                     {item.subItems ? (
                       <>
-                        <SidebarMenuButton isActive={pathname.startsWith(item.href)} className="gap-2">
+                        <SidebarMenuButton
+                          isActive={pathname.startsWith(item.href)}
+                          className="gap-2"
+                        >
                           <item.icon className="h-4 w-4" />
                           <span>{item.title}</span>
                           <ChevronDown className="ml-auto h-4 w-4" />
@@ -99,7 +130,10 @@ export default function SidebarNavigation({
                         <SidebarMenuSub>
                           {item.subItems.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild isActive={pathname === subItem.href}>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={pathname === subItem.href}
+                              >
                                 <Link href={subItem.href}>{subItem.title}</Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
@@ -107,7 +141,12 @@ export default function SidebarNavigation({
                         </SidebarMenuSub>
                       </>
                     ) : (
-                      <SidebarMenuButton asChild isActive={pathname === item.href} className="gap-2">
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === item.href}
+                        onClick={item.onclick}
+                        className="gap-2"
+                      >
                         <Link href={item.href}>
                           <item.icon className="h-4 w-4" />
                           <span>{item.title}</span>
@@ -149,5 +188,5 @@ export default function SidebarNavigation({
         </SidebarInset>
       </div>
     </SidebarProvider>
-  )
+  );
 }
