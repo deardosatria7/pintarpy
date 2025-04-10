@@ -51,7 +51,10 @@ export default async function CoursesPage() {
       description: course.description,
       duration: `${course.duration} menit`,
       progress: userProgress?.progress ?? 0,
-      status: userProgress?.status ?? "locked",
+      status:
+        userProgress?.status ?? course.title == "1. Pengenalan Python"
+          ? "in-progress"
+          : "locked",
     };
   });
 
