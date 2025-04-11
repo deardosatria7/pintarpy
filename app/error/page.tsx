@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AlertCircle, ArrowLeft, Home, RefreshCw } from "lucide-react";
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export default function ErrorPage() {
+function ErrorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [errorInfo, setErrorInfo] = useState({
@@ -100,5 +100,13 @@ export default function ErrorPage() {
         </CardFooter>
       </Card>
     </div>
+  );
+}
+
+export default function ErrorPage() {
+  return (
+    <Suspense>
+      <ErrorContent />
+    </Suspense>
   );
 }
