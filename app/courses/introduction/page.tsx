@@ -484,6 +484,7 @@ export default function IntroductionPage() {
             <NextCourseButton
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
               onClick={() => {
+                handleUpdateProgress();
                 handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
                 handleGoToCourse("variables-and-data-types");
               }}

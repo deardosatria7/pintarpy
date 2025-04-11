@@ -559,18 +559,17 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="font-bold text-2xl md:text-3xl text-purple-800 dark:text-purple-300">
-                Pengenalan Python
+                Variabel dan Tipe Data
               </h1>
               <p className="mt-2 text-gray-700 dark:text-gray-300 max-w-2xl">
-                Di materi pertama ini, kamu akan mengenal dasar-dasar Python:
-                bahasa pemrograman yang mudah dipelajari, fleksibel, dan sangat
-                populer!
+                Di materi kedua, kamu akan belajar berbagai tipe data seperti
+                string, integer, float, dan boolean.
               </p>
             </div>
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm self-start">
               <Clock className="h-5 w-5 text-purple-600 dark:text-purple-400" />
               <span className="text-gray-700 dark:text-gray-300 font-medium">
-                30 menit
+                45 menit
               </span>
             </div>
           </div>

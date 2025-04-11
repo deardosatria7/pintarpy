@@ -84,6 +84,7 @@ async function main() {
       where: { id: course.title },
       update: {},
       create: {
+        id: course.id,
         title: course.title,
         description: course.description,
         duration: durationNumber,
