@@ -28,7 +28,6 @@ export default async function CoursesPage() {
   };
 
   const allCourses = await prisma.course.findMany();
-  console.log(allCourses);
 
   const progressData = await prisma.userCourseProgress.findMany({
     where: {
@@ -53,10 +52,11 @@ export default async function CoursesPage() {
       description: course.description,
       duration: `${course.duration} menit`,
       progress: userProgress?.progress ?? 0,
-      status:
-        userProgress?.status ?? course.title == "1. Pengenalan Python"
-          ? "in_progress"
-          : "locked",
+      status: userProgress?.status
+        ? userProgress.status
+        : course.title === "1. Pengenalan Python"
+        ? "in_progress"
+        : "locked",
     };
   });
 
@@ -70,18 +70,63 @@ export default async function CoursesPage() {
     .filter((course) => course.status === "in_progress")
     .sort((a, b) => b.progress - a.progress);
 
-  // Ambil course terakhir yang dikerjakan atau fallback ke yang pertama
-  const currentCourse = inProgressCourses[0] ??
-    courses[0] ?? {
-      title: "1. Pengenalan Python",
-      description: "Kursus belum tersedia untuk saat ini.",
-      duration: "0 menit",
-      progress: 0,
+  // Ambil course yang status-nya "completed" dan urutkan berdasarkan urutan title
+  const completedCourses = courses
+    .filter((course) => course.status === "completed")
+    .sort((a, b) => a.title.localeCompare(b.title));
+
+  // Tentukan currentCourse berdasarkan urutan prioritas:
+  // 1. Course setelah terakhir yang completed
+  // 2. Course yang sedang in_progress
+  // 3. Course pertama dari daftar
+  // 4. Fallback jika semua kosong
+
+  let currentCourse: (typeof courses)[0] = {
+    title: "1. Pengenalan Python",
+    description: "Kursus belum tersedia untuk saat ini.",
+    duration: "0 menit",
+    progress: 0,
+    status: "in_progress",
+  };
+
+  if (completedCourses.length > 0) {
+    const lastCompleted = completedCourses[completedCourses.length - 1];
+    const lastCompletedIndex = courses.findIndex(
+      (c) => c.title === lastCompleted.title
+    );
+
+    if (lastCompletedIndex >= 0 && lastCompletedIndex < courses.length - 1) {
+      currentCourse = {
+        ...courses[lastCompletedIndex + 1],
+        status: "in_progress",
+      };
+    } else if (inProgressCourses.length > 0) {
+      currentCourse = {
+        ...inProgressCourses[0],
+        status: "in_progress",
+      };
+    } else if (courses.length > 0) {
+      currentCourse = {
+        ...courses[0],
+        status: "in_progress",
+      };
+    }
+  } else if (inProgressCourses.length > 0) {
+    currentCourse = {
+      ...inProgressCourses[0],
       status: "in_progress",
     };
+  } else if (courses.length > 0) {
+    currentCourse = {
+      ...courses[0],
+      status: "in_progress",
+    };
+  }
 
   const titleToHrefMap: Record<string, string> = {
     "1. Pengenalan Python": "/courses/introduction",
+    "2. Variabel dan Tipe Data": "/courses/variables-and-data-types",
+    "3. Struktur Kontrol": "/courses/control-structures",
     // Tambahkan sesuai kebutuhan
   };
 
@@ -126,7 +171,12 @@ export default async function CoursesPage() {
             <Card
               key={index}
               className={`overflow-hidden transition-all duration-300 hover:shadow-md dark:border-gray-800 ${
-                course.status === "locked" ? "opacity-70 dark:opacity-50" : ""
+                // course.status === "locked" ? "opacity-70 dark:opacity-50" : ""
+                course.title == currentCourse.title
+                  ? ""
+                  : course.status === "locked"
+                  ? "opacity-70 dark:opacity-50"
+                  : ""
               }`}
             >
               <CardHeader className="pb-2">

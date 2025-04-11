@@ -9,11 +9,12 @@ import {
   Clock,
   Code,
   PlayCircle,
-  Users,
-  Briefcase,
   Info,
   LightbulbIcon,
   Circle,
+  List,
+  Type,
+  Variable,
 } from "lucide-react";
 
 import SidebarNavigation from "@/components/sidebar-navigation";
@@ -70,30 +71,53 @@ export default function IntroductionPage() {
   const lessonSteps = [
     {
       id: 1,
-      title: "Apa itu Python?",
+      title: "Variabel dalam Python",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Python adalah bahasa pemrograman tingkat tinggi yang mudah dibaca
-            dan dipahami, cocok untuk pemula maupun profesional.
+            Variabel adalah tempat untuk menyimpan data dalam program. Dalam
+            Python, variabel dibuat saat Anda memberikan nilai padanya.
           </p>
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Python digunakan untuk berbagai keperluan seperti pengembangan web,
-            analisis data, kecerdasan buatan, automasi, dan lainnya.
+            Python tidak memerlukan deklarasi tipe data saat membuat variabel,
+            karena Python menggunakan &#34;dynamic typing&#34;.
           </p>
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Ciri khas Python adalah sintaks yang ringkas dan jelas, sehingga
-            sangat ramah untuk pemula.
+            Untuk membuat variabel, gunakan tanda sama dengan (=) untuk
+            memberikan nilai.
           </p>
+
+          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
+            <PyScriptTerminal
+              code={`# Membuat variabel
+nama = "Budi"
+umur = 25
+tinggi = 175.5
+  
+# Menggunakan variabel
+print("Nama:", nama)
+print("Umur:", umur, "tahun")
+print("Tinggi:", tinggi, "cm")`}
+            ></PyScriptTerminal>
+          </div>
+
           <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
             <h3 className="font-medium text-purple-800 dark:text-purple-300 flex items-center gap-2">
               <BookOpen className="h-5 w-5" />
               Fakta Menarik
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Nama Python tidak berasal dari ular, melainkan dari acara komedi
-              Inggris &#34;Monty Python&#39;s Flying Circus&#34; yang disukai
-              oleh Guido van Rossum, sang pencipta bahasa ini.
+              Nama variabel dalam Python bersifat case-sensitive, artinya
+              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
+                {" "}
+                nama{" "}
+              </code>
+              dan
+              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
+                {" "}
+                Nama{" "}
+              </code>
+              dianggap sebagai dua variabel yang berbeda.
             </p>
           </div>
         </>
@@ -101,66 +125,81 @@ export default function IntroductionPage() {
     },
     {
       id: 2,
-      title: "Kenapa Belajar Python?",
+      title: "Tipe Data Dasar",
       content: (
         <>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Python memiliki beberapa tipe data dasar yang sering digunakan. Tipe
+            data menentukan jenis nilai yang dapat disimpan dan operasi yang
+            dapat dilakukan.
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
               <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full">
-                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+                <Type className="h-5 w-5 text-green-600 dark:text-green-400" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Mudah Dipelajari
+                  String (str)
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Sintaks yang jelas dan sederhana, mirip dengan bahasa Inggris
-                  sehari-hari.
+                  Teks yang diapit oleh tanda kutip tunggal atau ganda.
                 </p>
+                <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400 mt-2 block">
+                  nama = &#34;Budi&#34;
+                </code>
               </div>
             </div>
 
             <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
               <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full">
-                <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                <Code className="h-5 w-5 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Komunitas Besar
+                  Integer (int)
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Dukungan komunitas yang luas dengan banyak tutorial dan
-                  library.
+                  Bilangan bulat tanpa desimal.
                 </p>
+                <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400 mt-2 block">
+                  umur = 25
+                </code>
               </div>
             </div>
 
             <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
               <div className="bg-purple-100 dark:bg-purple-900/30 p-2 rounded-full">
-                <Code className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                <Variable className="h-5 w-5 text-purple-600 dark:text-purple-400" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Multiguna
+                  Float
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Digunakan untuk web, data science, AI, automasi, dan banyak
-                  lagi.
+                  Bilangan desimal atau pecahan.
                 </p>
+                <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400 mt-2 block">
+                  tinggi = 175.5
+                </code>
               </div>
             </div>
 
             <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
               <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-full">
-                <Briefcase className="h-5 w-5 text-orange-600 dark:text-orange-400" />
+                <CheckCircle className="h-5 w-5 text-orange-600 dark:text-orange-400" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Peluang Karir
+                  Boolean (bool)
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Banyak digunakan di industri (Google, Netflix, Instagram).
+                  Nilai kebenaran: True atau False.
                 </p>
+                <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400 mt-2 block">
+                  aktif = True
+                </code>
               </div>
             </div>
           </div>
@@ -168,49 +207,74 @@ export default function IntroductionPage() {
           <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
             <h3 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
               <Info className="h-5 w-5" />
-              Statistik Popularitas
+              Memeriksa Tipe Data
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Python secara konsisten menduduki peringkat 3 besar dalam indeks
-              popularitas bahasa pemrograman TIOBE dan menduduki peringkat #1
-              dalam survei Stack Overflow Developer Survey.
+            <p className="text-gray-700 dark:text-gray-300 my-2">
+              Anda dapat menggunakan fungsi{" "}
+              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
+                type()
+              </code>{" "}
+              untuk memeriksa tipe data dari sebuah variabel.
             </p>
+            <PyScriptTerminal
+              code={`nama = "Budi"
+print(type(nama))  # Output: <class 'str'>
+  
+umur = 25
+print(type(umur))  # Output: <class 'int'>`}
+            ></PyScriptTerminal>
           </div>
         </>
       ),
     },
     {
       id: 3,
-      title: "Program Python Pertama",
+      title: "Konversi Tipe Data",
       content: (
         <>
           <div className="mb-4">
             <p className="text-gray-700 dark:text-gray-300">
-              Mari kita mulai dengan program Python paling sederhana: mencetak
-              teks &#34;Hello World!&#34; ke layar.
+              Terkadang kita perlu mengubah tipe data dari satu bentuk ke bentuk
+              lainnya. Python menyediakan fungsi bawaan untuk konversi tipe
+              data.
             </p>
           </div>
 
           <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div>
-              <pre className="text-sm bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`print("Hello World!")`}</code>
-              </pre>
-            </div>
+            <PyScriptTerminal
+              code={`# Konversi ke string
+umur = 25
+umur_str = str(umur)
+print("Umur saya " + umur_str + " tahun")
+  
+# Konversi ke integer
+angka_str = "100"
+angka_int = int(angka_str)
+print(angka_int + 50)  # Output: 150
+  
+# Konversi ke float
+angka_int = 75
+angka_float = float(angka_int)
+print(angka_float)  # Output: 75.0`}
+            ></PyScriptTerminal>
           </div>
 
           <div className="mt-6">
             <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               Coba Sendiri:
             </h3>
-            <PyScriptTerminal />
-            <p className="text-sm mt-3 text-gray-600 dark:text-gray-400">
-              Ketik{" "}
-              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                print(&#34;Hello World!&#34;)
-              </code>{" "}
-              di terminal di atas dan jalankan kode untuk melihat hasilnya.
-            </p>
+            <div className="bg-gray-50 dark:bg-gray-800/80 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+              <p className="text-gray-700 dark:text-gray-300 mb-2">
+                Cobalah kode berikut di interpreter Python:
+              </p>
+              <PyScriptTerminal
+                code={`# Konversi string ke float
+tinggi_str = "175.5"
+tinggi_float = float(tinggi_str)
+tinggi_meter = tinggi_float / 100
+print("Tinggi Anda dalam meter adalah:", tinggi_meter, "m")`}
+              ></PyScriptTerminal>
+            </div>
           </div>
 
           <div className="mt-6 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800">
@@ -221,10 +285,11 @@ export default function IntroductionPage() {
             <p className="text-gray-700 dark:text-gray-300 mt-2">
               Fungsi{" "}
               <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                print()
+                input()
               </code>{" "}
-              digunakan untuk menampilkan output ke layar. Teks yang ingin
-              ditampilkan diapit oleh tanda kutip.
+              selalu mengembalikan string, sehingga jika Anda ingin melakukan
+              operasi matematika dengan input pengguna, Anda perlu
+              mengkonversinya ke tipe numerik terlebih dahulu.
             </p>
           </div>
         </>
@@ -232,6 +297,126 @@ export default function IntroductionPage() {
     },
     {
       id: 4,
+      title: "Struktur Data Dasar",
+      content: (
+        <>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Selain tipe data dasar, Python juga memiliki struktur data yang
+            dapat menyimpan kumpulan nilai. Berikut adalah beberapa struktur
+            data yang umum digunakan.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                <List className="h-5 w-5 text-purple-600" />
+                List
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                Koleksi terurut yang dapat diubah dan dapat berisi berbagai tipe
+                data.
+              </p>
+              <pre className="text-xs bg-gray-900 text-gray-100 p-2 rounded-md overflow-x-auto mt-2">
+                <code>{`buah = ["apel", "jeruk", "mangga"]
+print(buah[0])  # Output: apel
+buah.append("pisang")
+print(buah)  # ["apel", "jeruk", "mangga", "pisang"]`}</code>
+              </pre>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                <List className="h-5 w-5 text-blue-600" />
+                Tuple
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                Koleksi terurut yang tidak dapat diubah (immutable).
+              </p>
+              <pre className="text-xs bg-gray-900 text-gray-100 p-2 rounded-md overflow-x-auto mt-2">
+                <code>{`koordinat = (10.5, 20.8)
+print(koordinat[1])  # Output: 20.8
+# koordinat[0] = 15  # Error! Tuple tidak dapat diubah`}</code>
+              </pre>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                <List className="h-5 w-5 text-green-600" />
+                Dictionary
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                Koleksi pasangan key-value yang tidak terurut.
+              </p>
+              <pre className="text-xs bg-gray-900 text-gray-100 p-2 rounded-md overflow-x-auto mt-2">
+                <code>{`siswa = {
+"nama": "Budi",
+"umur": 17,
+"kelas": "XI IPA"
+}
+
+print(siswa["nama"])  # Output: Budi
+siswa["nilai"] = 85  # Menambah key-value baru`}</code>
+              </pre>
+            </div>
+
+            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                <List className="h-5 w-5 text-orange-600" />
+                Set
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                Koleksi tidak terurut tanpa duplikat.
+              </p>
+              <pre className="text-xs bg-gray-900 text-gray-100 p-2 rounded-md overflow-x-auto mt-2">
+                <code>{`warna = {"merah", "hijau", "biru"}
+warna.add("kuning")
+warna.add("merah")  # Tidak akan menambah duplikat
+print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
+              </pre>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+            <h3 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
+              <Info className="h-5 w-5" />
+              Kapan Menggunakan Struktur Data Tertentu?
+            </h3>
+            <ul className="mt-2 space-y-1 text-gray-700 dark:text-gray-300">
+              <li className="flex items-start gap-2">
+                <ChevronRight className="h-4 w-4 text-blue-500 mt-1" />
+                <span>
+                  Gunakan <strong>List</strong> ketika Anda perlu menyimpan
+                  kumpulan item yang dapat berubah dan terurut.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <ChevronRight className="h-4 w-4 text-blue-500 mt-1" />
+                <span>
+                  Gunakan <strong>Tuple</strong> untuk data yang tidak boleh
+                  berubah, seperti koordinat atau konfigurasi tetap.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <ChevronRight className="h-4 w-4 text-blue-500 mt-1" />
+                <span>
+                  Gunakan <strong>Dictionary</strong> ketika Anda perlu
+                  menyimpan data dengan pasangan key-value untuk akses cepat.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <ChevronRight className="h-4 w-4 text-blue-500 mt-1" />
+                <span>
+                  Gunakan <strong>Set</strong> ketika Anda perlu menyimpan
+                  kumpulan nilai unik dan melakukan operasi himpunan.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </>
+      ),
+    },
+    {
+      id: 5,
       title: "Ringkasan & Langkah Selanjutnya",
       content: (
         <>
@@ -242,22 +427,22 @@ export default function IntroductionPage() {
             <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>
-                  Python adalah bahasa pemrograman tingkat tinggi yang mudah
-                  dibaca dan dipelajari
-                </span>
+                <span>Variabel dalam Python dan cara membuatnya</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Python digunakan untuk berbagai keperluan seperti web, data
-                  science, dan AI
+                  Tipe data dasar: string, integer, float, dan boolean
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                <span>Cara mengkonversi antar tipe data</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Menulis program Python pertama menggunakan fungsi print()
+                  Struktur data dasar: list, tuple, dictionary, dan set
                 </span>
               </li>
             </ul>
@@ -268,9 +453,9 @@ export default function IntroductionPage() {
               Langkah Selanjutnya:
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Pada materi berikutnya, kita akan mempelajari tentang variabel dan
-              tipe data dalam Python. Kamu akan belajar cara menyimpan dan
-              memanipulasi data dalam program.
+              Pada materi berikutnya, kita akan mempelajari tentang operator dan
+              ekspresi dalam Python. Kamu akan belajar cara melakukan operasi
+              matematika, perbandingan, dan logika.
             </p>
 
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
@@ -279,20 +464,24 @@ export default function IntroductionPage() {
                 Pratinjau Materi Berikutnya
               </h4>
               <p className="text-gray-700 dark:text-gray-300 mt-2">
-                &#34;Variabel dan Tipe Data&#34; akan mengajarkan kamu tentang:
+                &#34;Operator dan Ekspresi&#34; akan mengajarkan kamu tentang:
               </p>
               <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Cara membuat dan menggunakan variabel</span>
+                  <span>Operator aritmatika (+, -, *, /, %)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Tipe data dasar: string, integer, float, boolean</span>
+                  <span>Operator perbandingan (==, !=, &gt;, &lt;)</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Konversi antar tipe data</span>
+                  <span>Operator logika (and, or, not)</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <ChevronRight className="h-4 w-4 text-blue-500" />
+                  <span>Prioritas operator dalam ekspresi</span>
                 </li>
               </ul>
             </div>
@@ -314,7 +503,7 @@ export default function IntroductionPage() {
     try {
       // Replace with your actual API call to update progress
       await axios.post("/api/update-user-progress", {
-        courseId: courseId ?? "cm9b0ibwp0000txs80yikyep5",
+        courseId: courseId ?? "cm9b0ic1z0001txs8hlw7vv0q",
         progress: progress ?? stepProgress,
       });
       console.log(`Progress user ${userData.name} updated to ${stepProgress}%`);
@@ -484,8 +673,9 @@ export default function IntroductionPage() {
             <NextCourseButton
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
               onClick={() => {
-                handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
-                handleGoToCourse("variables-and-data-types");
+                handleUpdateProgress();
+                handleUpdateProgress("cm9b0ic4l0002txs8r19rezrq", 0);
+                handleGoToCourse("/courses/if-statements-and-loops");
               }}
             ></NextCourseButton>
           )}

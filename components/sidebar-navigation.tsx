@@ -49,7 +49,7 @@ const navigationItems = [
       { title: "Pengenalan Python", href: "/courses/introduction" },
       {
         title: "Variabel dan Tipe Data",
-        href: "/courses/variabel-dan-tipe-data",
+        href: "/courses/variables-and-data-types",
       },
       { title: "Struktur Kontrol", href: "/courses/struktur-kontrol" },
       { title: "Fungsi", href: "/courses/fungsi" },
@@ -73,7 +73,7 @@ const navigationItems = [
   {
     title: "Logout akun",
     icon: LogOutIcon,
-    href: "#",
+    href: "/login",
     onclick: () => {
       // Logout logic here
       signOut();
@@ -124,7 +124,7 @@ export default function SidebarNavigation({
                           className="gap-2"
                         >
                           <item.icon className="h-4 w-4" />
-                          <span>{item.title}</span>
+                          <Link href={item.href ?? "#"}>{item.title}</Link>
                           <ChevronDown className="ml-auto h-4 w-4" />
                         </SidebarMenuButton>
                         <SidebarMenuSub>
