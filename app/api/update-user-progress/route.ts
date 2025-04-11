@@ -42,25 +42,51 @@ export async function POST(req: NextRequest) {
       status = "completed";
     }
 
-    // Lakukan upsert (update jika ada, create jika belum ada)
-    const updatedProgress = await prisma.userCourseProgress.upsert({
+    // Fetch awal progress user (kalau ada)
+    const currentCourseProgress = await prisma.userCourseProgress.findUnique({
       where: {
         userId_courseId: {
-          userId: session.user.id!, // Pastikan session.user.id tersedia
-          courseId: courseId,
+          userId: session.user.id!,
+          courseId,
         },
       },
-      update: {
-        progress,
-        status,
-      },
-      create: {
-        userId: session.user.id!,
-        courseId,
-        progress,
-        status,
+      select: {
+        progress: true,
+        status: true,
       },
     });
+
+    let updatedProgress;
+
+    if (currentCourseProgress) {
+      // Update hanya jika progress baru lebih tinggi
+      if (progress > currentCourseProgress.progress) {
+        updatedProgress = await prisma.userCourseProgress.update({
+          where: {
+            userId_courseId: {
+              userId: session.user.id!,
+              courseId,
+            },
+          },
+          data: {
+            progress,
+            status,
+          },
+        });
+      } else {
+        updatedProgress = currentCourseProgress; // Tidak diupdate
+      }
+    } else {
+      // Belum ada, maka buat baru
+      updatedProgress = await prisma.userCourseProgress.create({
+        data: {
+          userId: session.user.id!,
+          courseId,
+          progress,
+          status,
+        },
+      });
+    }
 
     return NextResponse.json(
       { success: true, data: updatedProgress },
