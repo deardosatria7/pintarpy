@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     // Tentukan status course berdasarkan nilai progress
     let status: "locked" | "in_progress" | "completed" = "locked";
-    if (progress > 0 && progress < 100) {
+    if (progress >= 0 && progress < 100) {
       status = "in_progress";
     } else if (progress === 100) {
       status = "completed";
