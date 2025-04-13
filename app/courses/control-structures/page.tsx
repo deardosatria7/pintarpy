@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import VariablesDataTypesContent from "./content";
+import ControlStructuresContent from "./content";
 
 export default async function IntroductionPage() {
   const session = await auth();
@@ -9,7 +9,7 @@ export default async function IntroductionPage() {
 
   // Check if the user is enrolled in the course
   const userId = session.user.id;
-  const courseId = "cm9b0ic1z0001txs8hlw7vv0q"; // Replace with the actual course ID
+  const courseId = "cm9b0ic4l0002txs8r19rezrq";
   const currentUserCourses = await prisma.userCourseProgress.findMany({
     where: {
       userId,
@@ -20,9 +20,9 @@ export default async function IntroductionPage() {
   if (currentUserCourses.length === 0) {
     // Redirect to the error page
     return redirect(
-      "/error?message=You are not enrolled in this course.&title=Access Denied&code=403&returnUrl=/courses"
+      "/error?message=Anda belum menyelesaikan materi sebelumnya. Selesaikan dahulu materi sebelumnya baru melanjutnkan ke materi ini!&title=Materi terkunci!&code=403&returnUrl=/courses"
     );
   }
 
-  return <VariablesDataTypesContent />;
+  return <ControlStructuresContent />;
 }
