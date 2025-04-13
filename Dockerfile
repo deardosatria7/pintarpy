@@ -1,31 +1,29 @@
-# Gunakan image Node.js yang ringan
+# Stage 1: Build
 FROM node:18-alpine AS builder
-
 WORKDIR /app
 
-# Salin package.json dan package-lock.json
+# Salin package file dan install dependencies
 COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm install
-
-# Salin seluruh proyek
+# Salin semua source code
 COPY . .
 
-# Build Next.js
+# Batasi RAM saat build
+ENV NODE_OPTIONS=--max-old-space-size=512
 RUN npm run build
 
-# ===============================
-# Stage untuk menjalankan aplikasi
+# Stage 2: Runtime image
 FROM node:18-alpine
-
 WORKDIR /app
 
-# Salin hasil build dari stage builder
-COPY --from=builder /app ./
+# Salin hasil build dari builder stage
+COPY --from=builder /app/.next .next
+COPY --from=builder /app/public public
+COPY --from=builder /app/package*.json ./
 
-# Expose port 3000 untuk Next.js
+# Install hanya prod dependencies
+RUN npm ci --omit=dev
+
 EXPOSE 3000
-
-# Jalankan aplikasi
 CMD ["npm", "run", "start", "--", "-H", "0.0.0.0"]

@@ -7,11 +7,7 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Code,
   PlayCircle,
-  Users,
-  Briefcase,
-  Info,
   LightbulbIcon,
   Circle,
 } from "lucide-react";
@@ -91,8 +87,8 @@ export default function ControlStructuresContent() {
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mt-2">
               Struktur kontrol yang paling sering digunakan adalah percabangan
-              dan perulangan, yang memungkinkan program untuk "memutuskan"
-              tindakan berdasarkan kondisi tertentu.
+              dan perulangan, yang memungkinkan program untuk
+              &#34;memutuskan&#34; tindakan berdasarkan kondisi tertentu.
             </p>
           </div>
         </>
@@ -319,7 +315,8 @@ while count < 3:
                 Pratinjau Materi Berikutnya
               </h4>
               <p className="text-gray-700 dark:text-gray-300 mt-2">
-                Materi <strong>"Fungsi"</strong> akan mengajarkan kamu tentang:
+                Materi <strong>&#34;Fungsi&#34;</strong> akan mengajarkan kamu
+                tentang:
               </p>
               <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                 <li className="flex items-center gap-2">
