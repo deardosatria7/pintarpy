@@ -20,7 +20,7 @@ export default async function IntroductionPage() {
   if (currentUserCourses.length === 0) {
     // Redirect to the error page
     return redirect(
-      "/error?message=You are not enrolled in this course.&title=Access Denied&code=403&returnUrl=/courses"
+      "/error?message=Anda belum menyelesaikan materi sebelumnya. Selesaikan dahulu materi sebelumnya baru melanjutnkan ke materi ini!&title=Materi terkunci!&code=403&returnUrl=/courses"
     );
   }
 

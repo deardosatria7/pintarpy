@@ -119,3 +119,13 @@ model UserCourseProgress {
 
   @@unique([userId, courseId]) // hanya 1 progress per user per course
 }
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String   @unique
+  slug        String   @unique
+  imgLink     String?
+  content     String
+  createdAt   DateTime @default(now())
+  timesOpened Int      @default(0)
+}

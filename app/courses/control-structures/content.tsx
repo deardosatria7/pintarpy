@@ -63,7 +63,6 @@ export default function ControlStructuresContent() {
   }, [router]);
 
   // Definisi konten untuk setiap tahap pembelajaran struktur kontrol dalam Python
-  // Definisi konten untuk setiap tahap pembelajaran struktur kontrol dalam Python
   const lessonSteps = [
     {
       id: 1,
@@ -315,7 +314,7 @@ while count < 3:
                 Pratinjau Materi Berikutnya
               </h4>
               <p className="text-gray-700 dark:text-gray-300 mt-2">
-                Materi <strong>&#34;Fungsi&#34;</strong> akan mengajarkan kamu
+                Materi <strong>&#34;Fungsi&#34; </strong> akan mengajarkan kamu
                 tentang:
               </p>
               <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
@@ -399,7 +398,7 @@ while count < 3:
       name={userData.name}
       email={userData.email}
       image={userData.image}
-      pageTitle="Pengenalan Python"
+      pageTitle="Struktur Kontrol"
     >
       <div className="flex flex-col w-full space-y-6 p-4 md:p-8">
         {/* Header dengan Progress */}

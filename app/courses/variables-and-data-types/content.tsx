@@ -551,7 +551,7 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
       name={userData.name}
       email={userData.email}
       image={userData.image}
-      pageTitle="Pengenalan Python"
+      pageTitle="Variabel dan Tipe Data"
     >
       <div className="flex flex-col w-full space-y-6 p-4 md:p-8">
         {/* Header dengan Progress */}

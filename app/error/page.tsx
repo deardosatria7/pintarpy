@@ -33,12 +33,12 @@ function ErrorContent() {
     const showRefresh = searchParams.get("showRefresh") !== "false";
 
     // Update error info with URL parameters if they exist
-    setErrorInfo({
-      title: title || errorInfo.title,
-      message: message || errorInfo.message,
-      code: code || errorInfo.code,
+    setErrorInfo((prevErrorInfo) => ({
+      title: title || prevErrorInfo.title,
+      message: message || prevErrorInfo.message,
+      code: code || prevErrorInfo.code,
       showRefresh,
-    });
+    }));
   }, [searchParams]);
 
   const handleRefresh = () => {

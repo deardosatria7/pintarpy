@@ -1,7 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {Button} from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,10 +19,10 @@ import {
   Settings,
   User,
 } from "lucide-react";
-import {ThemeToggle} from "@/components/theme-toggle";
-import {MobileNav} from "@/components/mobile-nav";
-import {ScrollAnimation} from "@/components/animation/animation-collection";
-import {auth, signOut} from "@/auth";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
+import { ScrollAnimation } from "@/components/animation/animation-collection";
+import { auth, signOut } from "@/auth";
 
 export default async function Home() {
   const session = await auth();
@@ -46,7 +46,7 @@ print(sapa(${
   // add dynamic import
   const PyScriptTerminal = dynamic(
     () => import("@/components/pyscipt-terminal"),
-    {ssr: true} // this is server side rendered
+    { ssr: true } // this is server side rendered
   );
 
   return (
@@ -77,6 +77,12 @@ print(sapa(${
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               FAQ
+            </Link>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Blog
             </Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-4">
