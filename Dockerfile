@@ -9,9 +9,6 @@ COPY package.json package-lock.json ./
 # Install dependencies
 RUN npm install
 
-# Tambahkan baris ini untuk menyalin .env ke dalam image
-COPY .env .env
-
 # Salin seluruh proyek
 COPY . .
 
