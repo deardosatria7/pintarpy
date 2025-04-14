@@ -127,6 +127,7 @@ export default async function CoursesPage() {
     "1. Pengenalan Python": "/courses/introduction",
     "2. Variabel dan Tipe Data": "/courses/variables-and-data-types",
     "3. Struktur Kontrol": "/courses/control-structures",
+    "4. Fungsi": "/courses/functions",
     // Tambahkan sesuai kebutuhan
   };
 

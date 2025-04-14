@@ -78,12 +78,6 @@ print(sapa(${
             >
               FAQ
             </Link>
-            <Link
-              href="/blog"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Blog
-            </Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-4">
             <ThemeToggle />

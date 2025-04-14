@@ -20,7 +20,7 @@ export default async function IntroductionPage() {
   if (currentUserCourses.length === 0) {
     // Redirect to the error page
     return redirect(
-      "/error?message=Anda belum menyelesaikan materi sebelumnya. Selesaikan dahulu materi sebelumnya baru melanjutnkan ke materi ini!&title=Materi terkunci!&code=403&returnUrl=/courses"
+      "/error?message=Anda belum menyelesaikan materi sebelumnya. Selesaikan dahulu materi sebelumnya baru melanjutkan ke materi ini!&title=Materi terkunci!&code=403&returnUrl=/courses"
     );
   }
 
