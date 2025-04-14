@@ -53,7 +53,7 @@ const navigationItems = [
       },
       { title: "Struktur Kontrol", href: "/courses/control-structures" },
       { title: "Fungsi", href: "/courses/functions" },
-      { title: "Array", href: "/courses/struktur-data" },
+      { title: "Array", href: "/courses/arrays" },
       { title: "Error Handling", href: "/courses/error-handling" },
       { title: "OOP", href: "/courses/oop" },
       { title: "File Handling", href: "/courses/file-handling" },
@@ -104,10 +104,10 @@ export default function SidebarNavigation({
         <Sidebar className="border-r">
           <SidebarHeader className="px-4 py-3">
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
+              <Link className="flex items-center gap-2" href={"/"}>
                 <Code className="h-6 w-6 text-primary" />
                 <span className="font-semibold text-xl">PintarPy</span>
-              </div>
+              </Link>
               <ThemeToggle />
             </div>
           </SidebarHeader>

@@ -1,5 +1,5 @@
-import {signIn} from "@/auth";
-import {Button} from "@/components/ui/button";
+import { signIn } from "@/auth";
+import { Button } from "@/components/ui/button";
 import BackButton from "@/components/back-button";
 import {
   Card,
@@ -9,9 +9,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Github} from "lucide-react";
+import { Github } from "lucide-react";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function SignIn() {
+export default async function SignIn() {
+  const session = await auth();
+  if (session) {
+    // Redirect to course if already signed in
+    return redirect("/courses");
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-black">
       <Card className="w-full max-w-md">

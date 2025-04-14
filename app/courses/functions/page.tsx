@@ -1,15 +1,15 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import VariablesDataTypesContent from "./content";
+import FunctionsContent from "./content";
 
-export default async function VariablesAndDataTypesPage() {
+export default async function FunctionsPage() {
   const session = await auth();
   if (!session?.user) return redirect("/login");
 
   // Check if the user is enrolled in the course
   const userId = session.user.id;
-  const courseId = "cm9b0ic1z0001txs8hlw7vv0q"; // Replace with the actual course ID
+  const courseId = "cm9b0ic7d0003txs8xg8ziq6b"; // Replace with the actual course ID
   const currentUserCourses = await prisma.userCourseProgress.findMany({
     where: {
       userId,
@@ -24,5 +24,5 @@ export default async function VariablesAndDataTypesPage() {
     );
   }
 
-  return <VariablesDataTypesContent />;
+  return <FunctionsContent />;
 }
