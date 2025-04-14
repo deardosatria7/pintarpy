@@ -7,14 +7,8 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Code,
   PlayCircle,
-  Info,
-  LightbulbIcon,
   Circle,
-  List,
-  Type,
-  Variable,
 } from "lucide-react";
 
 import SidebarNavigation from "@/components/sidebar-navigation";
@@ -153,7 +147,7 @@ warna[0] = "kuning"  # Error! Tuple tidak bisa diubah`}
         <>
           <p className="text-gray-700 dark:text-gray-300">
             <strong>Dictionary</strong> adalah struktur data yang menyimpan
-            pasangan key dan value. Setiap item memiliki "kunci" unik.
+            pasangan key dan value. Setiap item memiliki &#34;kunci&#34; unik.
           </p>
           <p className="text-gray-700 dark:text-gray-300 mt-4">
             Dictionary ditulis menggunakan tanda kurung kurawal{" "}
