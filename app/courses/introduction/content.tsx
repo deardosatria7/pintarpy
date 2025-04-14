@@ -486,7 +486,7 @@ export default function IntroductionContent() {
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
-                handleGoToCourse("variables-and-data-types");
+                handleGoToCourse("/variables-and-data-types");
               }}
             ></NextCourseButton>
           )}
