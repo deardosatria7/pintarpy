@@ -7,14 +7,8 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Code,
   PlayCircle,
-  Info,
-  LightbulbIcon,
   Circle,
-  List,
-  Type,
-  Variable,
 } from "lucide-react";
 
 import SidebarNavigation from "@/components/sidebar-navigation";
