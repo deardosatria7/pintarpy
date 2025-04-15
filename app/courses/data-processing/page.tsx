@@ -17,7 +17,10 @@ export default async function DataProcessingPage() {
     },
   });
 
-  if (currentUserCourses.length === 0) {
+  if (
+    currentUserCourses[0].status != "in_progress" &&
+    currentUserCourses[0].status != "completed"
+  ) {
     // Redirect to the error page
     return redirect(
       "/error?message=Anda belum menyelesaikan materi sebelumnya. Selesaikan dahulu materi sebelumnya baru melanjutkan ke materi ini!&title=Materi terkunci!&code=403&returnUrl=/courses"
