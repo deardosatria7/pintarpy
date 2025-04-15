@@ -18,8 +18,8 @@ export default async function ArraysPage() {
   });
 
   if (
-    currentUserCourses[0].status != "in_progress" &&
-    currentUserCourses[0].status != "completed"
+    currentUserCourses[0]?.status != "in_progress" &&
+    currentUserCourses[0]?.status != "completed"
   ) {
     // Redirect to the error page
     return redirect(
