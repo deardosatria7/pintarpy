@@ -7,12 +7,7 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Code,
   PlayCircle,
-  Users,
-  Briefcase,
-  Info,
-  LightbulbIcon,
   Circle,
 } from "lucide-react";
 
@@ -29,7 +24,7 @@ import axios from "axios";
 import { Toaster } from "sonner";
 import { showErrorToast } from "@/components/ui/error-toast";
 
-export default function IntroductionContent() {
+export default function DataProcessingContent() {
   const router = useRouter();
   const [userData, setUserData] = useState({
     name: "User",
@@ -70,162 +65,125 @@ export default function IntroductionContent() {
   const lessonSteps = [
     {
       id: 1,
-      title: "Apa itu Python?",
+      title: "List Comprehension",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Python adalah bahasa pemrograman tingkat tinggi yang mudah dibaca
-            dan dipahami, cocok untuk pemula maupun profesional.
+            <strong>List Comprehension</strong> adalah cara singkat dan elegan
+            untuk membuat list baru dari iterable yang ada. Ini adalah gaya
+            Pythonic yang lebih ringkas dibandingkan loop biasa.
           </p>
+
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Python digunakan untuk berbagai keperluan seperti pengembangan web,
-            analisis data, kecerdasan buatan, automasi, dan lainnya.
+            Struktur dasarnya: <code>[ekspresi for item in iterable]</code>
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Ciri khas Python adalah sintaks yang ringkas dan jelas, sehingga
-            sangat ramah untuk pemula.
-          </p>
-          <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
-            <h3 className="font-medium text-purple-800 dark:text-purple-300 flex items-center gap-2">
-              <BookOpen className="h-5 w-5" />
-              Fakta Menarik
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Membuat list kuadrat dari 0-4
+kuadrat = [x**2 for x in range(5)]
+print(kuadrat)  # Output: [0, 1, 4, 9, 16]
+      
+# Filter hanya bilangan genap
+genap = [x for x in range(10) if x % 2 == 0]
+print(genap)  # Output: [0, 2, 4, 6, 8]`}
+            />
+          </div>
+
+          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+            <h3 className="font-medium text-blue-800 dark:text-blue-300 mb-2">
+              Keunggulan List Comprehension
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Nama Python tidak berasal dari ular, melainkan dari acara komedi
-              Inggris &#34;Monty Python&#39;s Flying Circus&#34; yang disukai
-              oleh Guido van Rossum, sang pencipta bahasa ini.
-            </p>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>Lebih singkat dan mudah dibaca</li>
+              <li>Menggabungkan loop dan conditional dalam satu baris</li>
+              <li>Sangat berguna untuk transformasi data</li>
+            </ul>
           </div>
         </>
       ),
     },
     {
       id: 2,
-      title: "Kenapa Belajar Python?",
+      title: "Dictionary Comprehension",
       content: (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full">
-                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Mudah Dipelajari
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Sintaks yang jelas dan sederhana, mirip dengan bahasa Inggris
-                  sehari-hari.
-                </p>
-              </div>
-            </div>
+          <p className="text-gray-700 dark:text-gray-300">
+            Seperti <strong>List Comprehension</strong>, Python juga memiliki{" "}
+            <strong>Dictionary Comprehension</strong> untuk membuat dictionary
+            secara ringkas.
+          </p>
 
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full">
-                <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Komunitas Besar
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Dukungan komunitas yang luas dengan banyak tutorial dan
-                  library.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-purple-100 dark:bg-purple-900/30 p-2 rounded-full">
-                <Code className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Multiguna
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Digunakan untuk web, data science, AI, automasi, dan banyak
-                  lagi.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-full">
-                <Briefcase className="h-5 w-5 text-orange-600 dark:text-orange-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Peluang Karir
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Banyak digunakan di industri (Google, Netflix, Instagram).
-                </p>
-              </div>
-            </div>
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Membuat dictionary kuadrat dari 1-5
+kuadrat = {x: x**2 for x in range(1, 6)}
+print(kuadrat)  # Output: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+      
+# Hanya untuk bilangan ganjil
+ganjil_kuadrat = {x: x**2 for x in range(1, 6) if x % 2 != 0}
+print(ganjil_kuadrat)  # Output: {1: 1, 3: 9, 5: 25}`}
+            />
           </div>
 
-          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-            <h3 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
-              <Info className="h-5 w-5" />
-              Statistik Popularitas
+          <div className="mt-6 bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-100 dark:border-yellow-800">
+            <h3 className="font-medium text-yellow-800 dark:text-yellow-300 mb-2">
+              Kapan Menggunakan Dictionary Comprehension?
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Python secara konsisten menduduki peringkat 3 besar dalam indeks
-              popularitas bahasa pemrograman TIOBE dan menduduki peringkat #1
-              dalam survei Stack Overflow Developer Survey.
-            </p>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>Transformasi data dari list ke dictionary</li>
+              <li>Membersihkan atau memfilter data sebelum digunakan</li>
+              <li>Menggabungkan proses looping dan mapping</li>
+            </ul>
           </div>
         </>
       ),
     },
     {
       id: 3,
-      title: "Program Python Pertama",
+      title: "Map, filter, dan reduce",
       content: (
         <>
-          <div className="mb-4">
-            <p className="text-gray-700 dark:text-gray-300">
-              Mari kita mulai dengan program Python paling sederhana: mencetak
-              teks &#34;Hello World!&#34; ke layar.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300">
+            Python menyediakan tiga fungsi powerful untuk memproses data secara
+            fungsional: <strong>map</strong>, <strong>filter</strong>, dan{" "}
+            <strong>reduce</strong>.
+          </p>
 
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div>
-              <pre className="text-sm bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`print("Hello World!")`}</code>
-              </pre>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-              Coba Sendiri:
-            </h3>
-            <PyScriptTerminal />
-            <p className="text-sm mt-3 text-gray-600 dark:text-gray-400">
-              Ketik{" "}
-              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                print(&#34;Hello World!&#34;)
-              </code>{" "}
-              di terminal di atas dan jalankan kode untuk melihat hasilnya.
-            </p>
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`from functools import reduce
+      
+# map: menerapkan fungsi ke semua item
+angka = [1, 2, 3, 4]
+hasil_map = list(map(lambda x: x * 2, angka))
+print(hasil_map)  # [2, 4, 6, 8]
+      
+# filter: menyaring item berdasarkan kondisi
+hasil_filter = list(filter(lambda x: x % 2 == 0, angka))
+print(hasil_filter)  # [2, 4]
+      
+# reduce: menggabungkan semua item menjadi satu nilai
+hasil_reduce = reduce(lambda a, b: a + b, angka)
+print(hasil_reduce)  # 10`}
+            />
           </div>
 
           <div className="mt-6 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800">
-            <h3 className="font-medium text-green-800 dark:text-green-300 flex items-center gap-2">
-              <LightbulbIcon className="h-5 w-5" />
-              Penjelasan
+            <h3 className="font-medium text-green-800 dark:text-green-300 mb-2">
+              Perbedaan Utama
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Fungsi{" "}
-              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                print()
-              </code>{" "}
-              digunakan untuk menampilkan output ke layar. Teks yang ingin
-              ditampilkan diapit oleh tanda kutip.
-            </p>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>
+                <code>map()</code>: ubah semua item dalam iterable
+              </li>
+              <li>
+                <code>filter()</code>: ambil hanya item yang memenuhi kondisi
+              </li>
+              <li>
+                <code>reduce()</code>: gabungkan semua item jadi satu hasil
+              </li>
+            </ul>
           </div>
         </>
       ),
@@ -237,27 +195,27 @@ export default function IntroductionContent() {
         <>
           <div className="bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border border-purple-100 dark:border-purple-800 mb-6">
             <h3 className="font-medium text-purple-800 dark:text-purple-300 text-lg mb-3">
-              Apa yang sudah kita pelajari:
+              Ringkasan Materi
             </h3>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Python adalah bahasa pemrograman tingkat tinggi yang mudah
-                  dibaca dan dipelajari
+                  <strong>List Comprehension</strong>: cara ringkas membuat list
+                  baru
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Python digunakan untuk berbagai keperluan seperti web, data
-                  science, dan AI
+                  <strong>Lambda Function</strong>: fungsi singkat tanpa nama
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Menulis program Python pertama menggunakan fungsi print()
+                  <strong>Map, filter, reduce</strong>: alat bantu untuk
+                  pemrosesan data berbasis fungsi
                 </span>
               </li>
             </ul>
@@ -265,34 +223,58 @@ export default function IntroductionContent() {
 
           <div className="bg-white dark:bg-gray-800/50 p-5 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="font-medium text-gray-900 dark:text-gray-100 text-lg mb-3">
-              Langkah Selanjutnya:
+              Langkah Selanjutnya: Mini Project
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Pada materi berikutnya, kita akan mempelajari tentang variabel dan
-              tipe data dalam Python. Kamu akan belajar cara menyimpan dan
-              memanipulasi data dalam program.
+              Sekarang saatnya untuk menantang kemampuanmu! Kita akan membuat{" "}
+              <strong>mini project</strong> Python berbasis PyScript langsung di
+              browser, tanpa perlu instalasi tambahan.
             </p>
 
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-              <h4 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                Pratinjau Materi Berikutnya
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800">
+              <h4 className="font-medium text-green-800 dark:text-green-300 flex items-center gap-2">
+                🎯 Tujuan Mini Project
               </h4>
               <p className="text-gray-700 dark:text-gray-300 mt-2">
-                &#34;Variabel dan Tipe Data&#34; akan mengajarkan kamu tentang:
+                Bangunlah sebuah{" "}
+                <strong>Kalkulator Statistik & Konversi Data</strong> sederhana:
               </p>
               <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                 <li className="flex items-center gap-2">
+                  <ChevronRight className="h-4 w-4 text-green-500" />
+                  Menghitung rata-rata, maksimum, dan minimum dari daftar angka.
+                </li>
+                <li className="flex items-center gap-2">
+                  <ChevronRight className="h-4 w-4 text-green-500" />
+                  Melakukan konversi suhu (C ↔ F) menggunakan fungsi modular.
+                </li>
+                <li className="flex items-center gap-2">
+                  <ChevronRight className="h-4 w-4 text-green-500" />
+                  Membuat kode Python untuk mengenkripsi password.
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+              <h4 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                Materi yang Akan Digunakan
+              </h4>
+              <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
+                <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Cara membuat dan menggunakan variabel</span>
+                  Perulangan dan kondisi dalam Python.
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Tipe data dasar: string, integer, float, boolean</span>
+                  Menggunakan <code>import</code> dan <code>as</code> untuk
+                  memanggil fungsi
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Konversi antar tipe data</span>
+                  Menerapkan logika dari topik <strong>
+                    functions
+                  </strong> dan <strong>pemrosesan data</strong>
                 </li>
               </ul>
             </div>
@@ -314,7 +296,7 @@ export default function IntroductionContent() {
     try {
       // Replace with your actual API call to update progress
       await axios.post("/api/update-user-progress", {
-        courseId: courseId ?? "cm9b0ibwp0000txs80yikyep5",
+        courseId: courseId ?? "cm9b0ichb0007txs8ov4ndyuz",
         progress: progress ?? stepProgress,
       });
       console.log(`Progress user ${userData.name} updated to ${stepProgress}%`);
@@ -363,7 +345,7 @@ export default function IntroductionContent() {
       name={userData.name}
       email={userData.email}
       image={userData.image}
-      pageTitle="Pengenalan Python"
+      pageTitle="Data Processing"
     >
       <div className="flex flex-col w-full space-y-6 p-4 md:p-8">
         {/* Header dengan Progress */}
@@ -371,18 +353,18 @@ export default function IntroductionContent() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="font-bold text-2xl md:text-3xl text-purple-800 dark:text-purple-300">
-                Pengenalan Python
+                Data Processing
               </h1>
               <p className="mt-2 text-gray-700 dark:text-gray-300 max-w-2xl">
-                Di materi pertama ini, kamu akan mengenal dasar-dasar Python:
-                bahasa pemrograman yang mudah dipelajari, fleksibel, dan sangat
-                populer!
+                Di materi ini, kamu akan belajar mengenai Pemrosesan Data di
+                Python menggunakan teknik ringkas dan efisien seperti list
+                comprehension dan dictionary comprehension.
               </p>
             </div>
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm self-start">
               <Clock className="h-5 w-5 text-purple-600 dark:text-purple-400" />
               <span className="text-gray-700 dark:text-gray-300 font-medium">
-                30 menit
+                45 menit
               </span>
             </div>
           </div>
@@ -416,9 +398,9 @@ export default function IntroductionContent() {
                   {lessonSteps.map((step) => (
                     <button
                       key={step.id}
-                      //   onClick={() => {
-                      //     setCurrentStep(step.id);
-                      //   }}
+                      // onClick={() => {
+                      //   setCurrentStep(step.id);
+                      // }}
                       className={`
                         inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium
                         ${
@@ -486,8 +468,8 @@ export default function IntroductionContent() {
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
               onClick={() => {
                 handleUpdateProgress();
-                handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
-                handleGoToCourse("variables-and-data-types");
+                handleUpdateProgress("cm9b0icjv0008txs8o4x4o9e2", 0);
+                handleGoToCourse("mini-projects");
               }}
             ></NextCourseButton>
           )}

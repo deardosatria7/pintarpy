@@ -382,6 +382,7 @@ while count < 3:
 
   // handler untuk navigasi ke course selanjutnya
   const handleGoToCourse = (hrefLink: string) => {
+    router.refresh();
     router.push(`/courses/${hrefLink}`);
   };
 
@@ -522,7 +523,7 @@ while count < 3:
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0ic7d0003txs8xg8ziq6b", 0);
-                handleGoToCourse("/functions");
+                handleGoToCourse("functions");
               }}
             ></NextCourseButton>
           )}

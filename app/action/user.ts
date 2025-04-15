@@ -21,5 +21,5 @@ export async function deleteUserAccount(userId: string) {
     where: { id: userId },
   });
 
-  redirect("/login");
+  redirect("/");
 }

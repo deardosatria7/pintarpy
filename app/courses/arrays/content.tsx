@@ -295,6 +295,7 @@ print(mahasiswa)`}
 
   // handler untuk navigasi ke course selanjutnya
   const handleGoToCourse = (hrefLink: string) => {
+    router.refresh();
     router.push(`/courses/${hrefLink}`);
   };
 
@@ -434,7 +435,7 @@ print(mahasiswa)`}
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0iccd0005txs8i1b5yokv", 0);
-                handleGoToCourse("/error-handling");
+                handleGoToCourse("error-handling");
               }}
             ></NextCourseButton>
           )}

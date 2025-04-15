@@ -27,7 +27,11 @@ export default async function CoursesPage() {
     image: session.user.image || "https://via.placeholder.com/150",
   };
 
-  const allCourses = await prisma.course.findMany();
+  const allCourses = await prisma.course.findMany({
+    orderBy: {
+      title: "asc",
+    },
+  });
 
   const progressData = await prisma.userCourseProgress.findMany({
     where: {
@@ -128,6 +132,11 @@ export default async function CoursesPage() {
     "2. Variabel dan Tipe Data": "/courses/variables-and-data-types",
     "3. Struktur Kontrol": "/courses/control-structures",
     "4. Fungsi": "/courses/functions",
+    "5. List, Tuple, dan Dictionary": "/courses/arrays",
+    "6. Error Handling": "/courses/error-handling",
+    "7. Object-Oriented Programming (OOP)":
+      "/courses/object-oriented-programming",
+    "8. Data Processing": "/courses/data-processing",
     // Tambahkan sesuai kebutuhan
   };
 
@@ -273,10 +282,13 @@ export default async function CoursesPage() {
             </CardContent>
 
             <CardFooter>
-              <Button className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:hover:bg-purple-700 dark:text-white hover:cursor-pointer">
+              <Link
+                href={titleToHrefMap[currentCourse.title] ?? "#"}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg text-white bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:hover:bg-purple-700 dark:text-white hover:cursor-pointer"
+              >
                 Lanjutkan Belajar
                 <ChevronRight className="h-4 w-4 ml-1" />
-              </Button>
+              </Link>
             </CardFooter>
           </Card>
         </div>

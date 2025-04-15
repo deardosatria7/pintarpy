@@ -78,6 +78,12 @@ print(sapa(${
             >
               FAQ
             </Link>
+            <Link
+              href="/about"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              About Us
+            </Link>
           </nav>
           <div className="flex items-center gap-2 md:gap-4">
             <ThemeToggle />
@@ -113,12 +119,22 @@ print(sapa(${
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="hover:cursor-pointer">
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Profil</span>
+                    <Link
+                      href={"/settings"}
+                      className="flex items-center gap-2 w-full"
+                    >
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profil</span>
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="hover:cursor-pointer">
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Pengaturan</span>
+                    <Link
+                      href={"/settings"}
+                      className="flex items-center gap-2 w-full"
+                    >
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Pengaturan</span>
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="hover:cursor-pointer">

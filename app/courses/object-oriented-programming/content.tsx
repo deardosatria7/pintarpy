@@ -24,7 +24,7 @@ import axios from "axios";
 import { Toaster } from "sonner";
 import { showErrorToast } from "@/components/ui/error-toast";
 
-export default function FunctionsContent() {
+export default function OOPContent() {
   const router = useRouter();
   const [userData, setUserData] = useState({
     name: "User",
@@ -61,260 +61,326 @@ export default function FunctionsContent() {
     checkAuth();
   }, [router]);
 
-  // Definisi konten untuk setiap tahap pembelajaran
   const lessonSteps = [
     {
       id: 1,
-      title: "Pengenalan Fungsi dalam Python",
+      title: "Pengenalan OOP: Class dan Object",
       content: (
         <>
-          <p className="text-gray-700 dark:text-gray-300">
-            Fungsi adalah blok kode yang dapat digunakan kembali untuk melakukan
-            tugas tertentu. Dengan menggunakan fungsi, kamu dapat mengelompokkan
-            kode yang sering digunakan agar lebih mudah dipelihara dan diuji.
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Di Python, fungsi didefinisikan menggunakan kata kunci{" "}
-            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-              def
-            </code>
-            . Setelah fungsi didefinisikan, kamu dapat memanggilnya dengan
-            menyebutkan namanya beserta tanda kurung.
-          </p>
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-            <PyScriptTerminal
-              code={`# Mendefinisikan fungsi sederhana
-def sapa(nama):
-    """
-    Menyapa pengguna dengan nama yang diberikan.
-    """
-    return f"Halo, {nama}!"
-  
-# Memanggil fungsi
-hasil = sapa("Budi")
-print(hasil)  # Output: Halo, Budi!
-`}
-            ></PyScriptTerminal>
-          </div>
-          <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
-            <h3 className="font-medium text-purple-800 dark:text-purple-300 flex items-center gap-2">
-              <BookOpen className="h-5 w-5" />
-              Fakta Menarik
+          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800 mb-6">
+            <h3 className="font-medium text-green-800 dark:text-green-300 mb-2">
+              Selamat! 🎉
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Fungsi di Python adalah <em>first class citizens</em> yang artinya
-              fungsi dapat diperlakukan seperti variabel. Kamu bisa menyimpan
-              fungsi dalam variabel, mengirimnya sebagai argumen, atau bahkan
-              mengembalikannya dari fungsi lain.
+            <p className="text-gray-700 dark:text-gray-300">
+              Kamu telah menempuh perjalanan yang luar biasa sejauh ini—memahami
+              variabel, kondisi, fungsi, hingga error handling di Python.
+              Sekarang, waktunya naik ke level berikutnya:{" "}
+              <strong>Object-Oriented Programming (OOP)</strong>! 🚀
             </p>
+          </div>
+
+          <p className="text-gray-700 dark:text-gray-300">
+            <strong>Object-Oriented Programming (OOP)</strong> adalah paradigma
+            pemrograman yang berfokus pada objek. Objek merepresentasikan
+            entitas dalam dunia nyata, dan setiap objek dibangun dari sebuah
+            cetakan yang disebut <strong>class</strong>.
+          </p>
+
+          <p className="text-gray-700 dark:text-gray-300 mt-4">
+            Dengan OOP, kita bisa membagi program menjadi bagian-bagian kecil
+            yang lebih terstruktur, membuatnya lebih mudah untuk dipelihara dan
+            dikembangkan.
+          </p>
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Membuat class
+class Mahasiswa:
+  def __init__(self, nama, jurusan):
+    self.nama = nama
+    self.jurusan = jurusan
+        
+  def perkenalan(self):
+    print(f"Halo, nama saya {self.nama} dari jurusan {self.jurusan}.")
+        
+# Membuat object dari class
+m1 = Mahasiswa("Ayu", "Informatika")
+m1.perkenalan()`}
+            />
+          </div>
+          <div className="mt-6 bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800">
+            <h3 className="font-medium text-indigo-800 dark:text-indigo-300 mb-2">
+              Konsep Penting
+            </h3>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>
+                <strong>Class</strong>: cetakan atau template untuk membuat
+                object.
+              </li>
+              <li>
+                <strong>Object</strong>: hasil dari class, memiliki atribut dan
+                method.
+              </li>
+              <li>
+                <code>__init__</code>: method khusus yang otomatis dijalankan
+                saat object dibuat.
+              </li>
+              <li>
+                <code>self</code>: referensi ke instance (object) saat ini.
+              </li>
+            </ul>
           </div>
         </>
       ),
     },
     {
       id: 2,
-      title: "Parameter dan Argumen",
+      title: "Inheritance: Pewarisan Class dalam OOP",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Fungsi di Python dapat menerima input berupa parameter. Parameter
-            memungkinkan kamu untuk mengirim data ke dalam fungsi. Parameter
-            juga bisa memiliki nilai default sehingga tidak wajib diberikan saat
-            pemanggilan.
+            <strong>Inheritance</strong> atau pewarisan memungkinkan sebuah
+            class mewarisi atribut dan method dari class lain. Ini sangat
+            berguna saat membuat class yang memiliki karakteristik dasar yang
+            sama.
           </p>
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-            <PyScriptTerminal
-              code={`def perkenalan(nama, usia=18):
-    """
-    Mengenalkan seseorang dengan nama dan usia.
-    """
-    print(f"Halo, saya {nama} dan saya berusia {usia} tahun.")
-  
-# Pemanggilan fungsi
-perkenalan("Andi")           # Menggunakan usia default
-perkenalan("Budi", 25)        # Menentukan usia secara eksplisit
-`}
-            ></PyScriptTerminal>
-          </div>
+
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Pada contoh di atas, parameter{" "}
-            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-              usia
-            </code>{" "}
-            memiliki nilai default 18, sehingga fungsi dapat dipanggil tanpa
-            memberikan nilai untuk parameter tersebut.
+            Class yang diwarisi disebut <em>parent class</em>, sedangkan class
+            yang mewarisi disebut <em>child class</em>.
           </p>
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Parent class
+class Mahasiswa:
+  def __init__(self, nama):
+    self.nama = nama
+    
+  def sapa(self):
+    print(f"Halo, saya {self.nama}.")
+    
+# Child class
+class MahasiswaTI(Mahasiswa):
+  def belajar(self):
+    print("Saya sedang belajar coding.")
+    
+# Membuat object dari class turunan
+m2 = MahasiswaTI("Rian")
+m2.sapa()      # Method dari parent
+m2.belajar()   # Method dari child`}
+            />
+          </div>
+
+          <div className="mt-6 bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-100 dark:border-orange-800">
+            <h3 className="font-medium text-orange-800 dark:text-orange-300 mb-2">
+              Fitur Inheritance
+            </h3>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>
+                Child class dapat menggunakan method dan atribut dari parent
+                class.
+              </li>
+              <li>Kita bisa menambahkan atau menimpa method di child class.</li>
+              <li>
+                Mendukung <code>super()</code> untuk akses konstruktor parent.
+              </li>
+            </ul>
+          </div>
         </>
       ),
     },
     {
       id: 3,
-      title: "Nilai Kembalian (Return) dan Docstring",
+      title: "Menggunakan super() dalam Pewarisan",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Fungsi dapat mengembalikan nilai menggunakan kata kunci{" "}
-            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-              return
-            </code>
-            . Selain itu, kamu bisa menambahkan docstring (dalam triple quotes)
-            untuk mendokumentasikan fungsi.
+            Fungsi <code>super()</code> digunakan di dalam class turunan untuk
+            memanggil method atau konstruktor dari parent class. Ini berguna
+            jika kita ingin memperluas fungsionalitas yang sudah ada.
           </p>
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-            <PyScriptTerminal
-              code={`def tambah(a, b):
-    """
-    Mengembalikan hasil penjumlahan dari dua angka.
-    """
-    return a + b
-  
-# Menggunakan fungsi tambah
-hasil = tambah(5, 7)
-print("Hasil:", hasil)  # Output: Hasil: 12
-  `}
-            ></PyScriptTerminal>
-          </div>
+
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Docstring pada fungsi di atas menjelaskan apa yang dilakukan fungsi
-            tersebut, sehingga memudahkan pemahaman bagi pengguna lain atau saat
-            kamu kembali membaca kode tersebut.
+            Biasanya digunakan di dalam <code>__init__()</code> agar atribut
+            dari parent class tetap terbentuk.
           </p>
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`class Mahasiswa:
+  def __init__(self, nama):
+    self.nama = nama
+    
+class MahasiswaTI(Mahasiswa):
+  def __init__(self, nama, jurusan):
+    super().__init__(nama)  # Panggil __init__ parent
+    self.jurusan = jurusan
+    
+  def info(self):
+    print(f"{self.nama} dari jurusan {self.jurusan}")
+    
+m3 = MahasiswaTI("Budi", "Teknik Informatika")
+m3.info()`}
+            />
+          </div>
+
+          <div className="mt-6 bg-lime-50 dark:bg-lime-900/20 p-4 rounded-lg border border-lime-100 dark:border-lime-800">
+            <h3 className="font-medium text-lime-800 dark:text-lime-300 mb-2">
+              Kenapa menggunakan super()?
+            </h3>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>Menghindari penulisan ulang kode parent</li>
+              <li>Memastikan konstruktor parent tetap berjalan</li>
+              <li>
+                Mendukung struktur pewarisan kompleks (multiple inheritance)
+              </li>
+            </ul>
+          </div>
         </>
       ),
     },
     {
       id: 4,
-      title: "Variabel Lokal dan Global",
+      title: "Encapsulation: Membatasi Akses dalam Class",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Variabel yang didefinisikan di dalam sebuah fungsi bersifat lokal,
-            artinya hanya dapat diakses di dalam fungsi tersebut. Sedangkan
-            variabel yang didefinisikan di luar fungsi adalah variabel global
-            yang dapat diakses di mana saja.
+            <strong>Encapsulation</strong> adalah prinsip OOP yang membatasi
+            akses langsung ke data dalam sebuah objek. Tujuannya adalah menjaga
+            data tetap aman dan tidak bisa diubah sembarangan.
           </p>
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-            <PyScriptTerminal
-              code={`x = "global"
-  
-def contoh():
-    x = "lokal"
-    print("Di dalam fungsi:", x)
-  
-contoh()
-print("Di luar fungsi:", x)
-  `}
-            ></PyScriptTerminal>
-          </div>
+
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Pada contoh di atas, variabel{" "}
-            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-              x
-            </code>{" "}
-            yang didefinisikan di dalam fungsi{" "}
-            <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-              contoh
-            </code>{" "}
-            hanya berlaku di dalam fungsi tersebut.
+            Di Python, kita bisa membuat atribut <strong>privat</strong> dengan
+            menambahkan underscore ganda <code>__</code> di depan nama atribut.
           </p>
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`class AkunBank:
+  def __init__(self, saldo_awal):
+    self.__saldo = saldo_awal  # atribut privat
+    
+  def lihat_saldo(self):
+    print(f"Saldo saat ini: {self.__saldo}")
+    
+  def setor(self, jumlah):
+    if jumlah > 0:
+      self.__saldo += jumlah
+    
+akun = AkunBank(100000)
+akun.lihat_saldo()
+akun.setor(50000)
+akun.lihat_saldo()
+print(akun.__saldo)  # Error: tidak bisa diakses langsung`}
+            />
+          </div>
+
+          <div className="mt-6 bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg border border-pink-100 dark:border-pink-800">
+            <h3 className="font-medium text-pink-800 dark:text-pink-300 mb-2">
+              Fitur Encapsulation
+            </h3>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>Melindungi data internal class</li>
+              <li>Mengontrol akses data melalui method (getter/setter)</li>
+              <li>Membantu menjaga validitas dan keamanan data</li>
+            </ul>
+          </div>
         </>
       ),
     },
     {
       id: 5,
-      title: "Fungsi Rekursif",
+      title: "Polymorphism: Satu Interface, Banyak Implementasi",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Fungsi rekursif adalah fungsi yang memanggil dirinya sendiri untuk
-            menyelesaikan suatu masalah. Teknik ini sering digunakan untuk
-            memecahkan masalah yang bisa dipecah menjadi sub-masalah yang lebih
-            kecil.
+            <strong>Polymorphism</strong> memungkinkan kita menggunakan method
+            yang sama dengan perilaku yang berbeda tergantung pada objeknya.
           </p>
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-            <PyScriptTerminal
-              code={`def faktorial(n):
-    """
-    Menghitung faktorial dari sebuah angka secara rekursif.
-    """
-    if n == 0:
-        return 1
-    else:
-        return n * faktorial(n - 1)
-  
-print("Faktorial 5:", faktorial(5))  # Output: Faktorial 5: 120
-  `}
-            ></PyScriptTerminal>
-          </div>
+
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Contoh di atas menggunakan rekursi untuk menghitung faktorial dari
-            angka 5.
+            Dalam Python, polymorphism sering muncul saat kita membuat method
+            dengan nama yang sama di beberapa class berbeda.
           </p>
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`class Burung:
+  def suara(self):
+    print("Burung bersuara...")
+    
+class Merpati(Burung):
+  def suara(self):
+    print("Guk guk!")
+    
+class Elang(Burung):
+  def suara(self):
+    print("Screech!")
+    
+# Polymorphism in action
+def uji_suara(burung):
+  burung.suara()
+    
+uji_suara(Merpati())
+uji_suara(Elang())`}
+            />
+          </div>
+
+          <div className="mt-6 bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-100 dark:border-orange-800">
+            <h3 className="font-medium text-orange-800 dark:text-orange-300 mb-2">
+              Kapan Polymorphism Berguna?
+            </h3>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>Saat ingin menulis fungsi umum untuk objek berbeda</li>
+              <li>Memudahkan ekspansi dan modifikasi kode</li>
+              <li>
+                Mendukung prinsip desain &#34;Open for Extension, Closed for
+                Modification&#34;
+              </li>
+            </ul>
+          </div>
         </>
       ),
     },
     {
       id: 6,
-      title: "Fungsi Lambda (Anonim)",
+      title: "Ringkasan OOP & Langkah Selanjutnya",
       content: (
         <>
-          <p className="text-gray-700 dark:text-gray-300">
-            Fungsi lambda adalah fungsi anonim yang dituliskan dalam satu baris
-            kode. Fungsi ini sangat berguna untuk operasi sederhana dan sering
-            digunakan sebagai argumen untuk fungsi lain.
-          </p>
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-            <PyScriptTerminal
-              code={`# Fungsi lambda untuk menjumlahkan dua angka
-tambah = lambda a, b: a + b
-  
-print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
-  `}
-            ></PyScriptTerminal>
-          </div>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Fungsi lambda memungkinkan penulisan fungsi secara ringkas tanpa
-            harus menggunakan definisi fungsi standar.
-          </p>
-        </>
-      ),
-    },
-    {
-      id: 7,
-      title: "Ringkasan & Langkah Selanjutnya",
-      content: (
-        <>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border border-purple-100 dark:border-purple-800 mb-6">
-            <h3 className="font-medium text-purple-800 dark:text-purple-300 text-lg mb-3">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 p-5 rounded-lg border border-yellow-100 dark:border-yellow-800 mb-6">
+            <h3 className="font-medium text-yellow-800 dark:text-yellow-300 text-lg mb-3">
               Apa yang sudah kita pelajari:
             </h3>
             <ul className="space-y-2 text-gray-700 dark:text-gray-300">
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Fungsi dasar dan cara mendefinisikannya menggunakan{" "}
-                  <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                    def
-                  </code>
+                  Membuat dan menggunakan <strong>class</strong> dan{" "}
+                  <strong>object</strong>
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Penggunaan parameter, argumen, dan nilai kembali (
-                  <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                    return
-                  </code>
-                  )
+                  Menggunakan <code>__init__</code> untuk menginisialisasi
+                  atribut
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>Perbedaan antara variabel lokal dan global</span>
+                <span>
+                  Menerapkan <strong>inheritance</strong> dan{" "}
+                  <code>super()</code>
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>Fungsi rekursif dan fungsi lambda (anonim)</span>
+                <span>
+                  Memahami konsep <strong>encapsulation</strong> dan{" "}
+                  <strong>polymorphism</strong>
+                </span>
               </li>
             </ul>
           </div>
@@ -324,8 +390,11 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
               Langkah Selanjutnya:
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Pada materi berikutnya, kita akan mempelajari struktur data array
-              di Python. Kamu akan belajar mengenai:
+              Kita akan mulai mengeksplorasi <strong>Pemrosesan Data</strong> di
+              Python menggunakan teknik ringkas dan efisien seperti{" "}
+              <code>list comprehension</code> dan <code>lambda function</code>.
+              Ini akan membantu kamu memproses data dengan cara yang lebih baik
+              lagi!
             </p>
 
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
@@ -333,29 +402,25 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
                 <BookOpen className="h-5 w-5" />
                 Pratinjau Materi Berikutnya
               </h4>
-              <p className="text-gray-700 dark:text-gray-300 mt-2">
-                Materi struktur data array akan mencakup:
-              </p>
               <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
                   <span>
-                    <strong>List</strong>: struktur data berurutan yang bersifat
-                    mutable
+                    Menyaring dan memanipulasi data dengan{" "}
+                    <code>list comprehension</code>
                   </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
                   <span>
-                    <strong>Tuple</strong>: struktur data berurutan yang
-                    bersifat immutable
+                    Menulis fungsi cepat dan singkat dengan <code>lambda</code>
                   </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
                   <span>
-                    <strong>Dictionary</strong>: struktur data berbasis
-                    key-value yang tidak berurutan
+                    Kombinasi <code>lambda</code> dengan <code>map()</code>,{" "}
+                    <code>filter()</code>, dan <code>sorted()</code>
                   </span>
                 </li>
               </ul>
@@ -378,7 +443,7 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
     try {
       // Replace with your actual API call to update progress
       await axios.post("/api/update-user-progress", {
-        courseId: courseId ?? "cm9b0ic7d0003txs8xg8ziq6b",
+        courseId: courseId ?? "cm9b0icer0006txs8nwm29xat",
         progress: progress ?? stepProgress,
       });
       console.log(`Progress user ${userData.name} updated to ${stepProgress}%`);
@@ -427,7 +492,7 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
       name={userData.name}
       email={userData.email}
       image={userData.image}
-      pageTitle="Fungsi"
+      pageTitle="OOP Python"
     >
       <div className="flex flex-col w-full space-y-6 p-4 md:p-8">
         {/* Header dengan Progress */}
@@ -435,17 +500,18 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="font-bold text-2xl md:text-3xl text-purple-800 dark:text-purple-300">
-                Fungsi
+                OOP (Object Oriented Programming)
               </h1>
               <p className="mt-2 text-gray-700 dark:text-gray-300 max-w-2xl">
-                Di materi ini, kamu akan belajar mengenai fungsi yang ada dalam
-                bahasa pemrograman Python.
+                Di materi ini, kamu akan belajar mengenai Object Oriented
+                Programming dalam Python. Kita akan belajar dasar-dasar class,
+                objek, inheritance, dan encapsulation di Python.
               </p>
             </div>
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm self-start">
               <Clock className="h-5 w-5 text-purple-600 dark:text-purple-400" />
               <span className="text-gray-700 dark:text-gray-300 font-medium">
-                50 menit
+                90 menit
               </span>
             </div>
           </div>
@@ -549,8 +615,8 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
               onClick={() => {
                 handleUpdateProgress();
-                handleUpdateProgress("cm9b0ic9q0004txs8mudwhsln", 0);
-                handleGoToCourse("arrays");
+                handleUpdateProgress("cm9b0ichb0007txs8ov4ndyuz", 0);
+                handleGoToCourse("data-processing");
               }}
             ></NextCourseButton>
           )}

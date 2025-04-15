@@ -7,12 +7,7 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Code,
   PlayCircle,
-  Users,
-  Briefcase,
-  Info,
-  LightbulbIcon,
   Circle,
 } from "lucide-react";
 
@@ -29,7 +24,7 @@ import axios from "axios";
 import { Toaster } from "sonner";
 import { showErrorToast } from "@/components/ui/error-toast";
 
-export default function IntroductionContent() {
+export default function ErrorHandlingContent() {
   const router = useRouter();
   const [userData, setUserData] = useState({
     name: "User",
@@ -66,166 +61,159 @@ export default function IntroductionContent() {
     checkAuth();
   }, [router]);
 
-  // Definisi konten untuk setiap tahap pembelajaran
   const lessonSteps = [
     {
       id: 1,
-      title: "Apa itu Python?",
+      title: "Mengenal Error Handling",
       content: (
         <>
           <p className="text-gray-700 dark:text-gray-300">
-            Python adalah bahasa pemrograman tingkat tinggi yang mudah dibaca
-            dan dipahami, cocok untuk pemula maupun profesional.
+            Dalam pemrograman, error handling penting untuk mencegah program
+            berhenti tiba-tiba ketika terjadi kesalahan. Python menyediakan
+            mekanisme <strong>try-except</strong> untuk menangani error.
           </p>
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Python digunakan untuk berbagai keperluan seperti pengembangan web,
-            analisis data, kecerdasan buatan, automasi, dan lainnya.
+            Dengan menggunakan <code>try</code>, kita dapat "mencoba"
+            menjalankan kode. Jika terjadi error, bagian <code>except</code>{" "}
+            akan dijalankan sebagai gantinya.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Ciri khas Python adalah sintaks yang ringkas dan jelas, sehingga
-            sangat ramah untuk pemula.
-          </p>
-          <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
-            <h3 className="font-medium text-purple-800 dark:text-purple-300 flex items-center gap-2">
-              <BookOpen className="h-5 w-5" />
-              Fakta Menarik
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Contoh error handling
+try:
+  angka = '0'  # Ganti dengan angka yang ingin dibagi
+  hasil = 10 / angka
+  print("Hasil:", hasil)
+except ZeroDivisionError:
+  print("Error: Tidak bisa membagi dengan nol!")
+except TypeError:
+  print("Error: Input harus berupa angka!")`}
+            />
+          </div>
+
+          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
+            <h3 className="font-medium text-blue-800 dark:text-blue-300 mb-2">
+              Fitur & Kegunaan
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Nama Python tidak berasal dari ular, melainkan dari acara komedi
-              Inggris &#34;Monty Python&#39;s Flying Circus&#34; yang disukai
-              oleh Guido van Rossum, sang pencipta bahasa ini.
-            </p>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>Menangani error dengan aman tanpa menghentikan program</li>
+              <li>Meningkatkan keandalan dan pengalaman pengguna</li>
+              <li>
+                Memungkinkan program tetap berjalan meskipun terjadi kesalahan
+              </li>
+            </ul>
           </div>
         </>
       ),
     },
     {
       id: 2,
-      title: "Kenapa Belajar Python?",
+      title: "Blok Finally & Raise Error",
       content: (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-green-100 dark:bg-green-900/30 p-2 rounded-full">
-                <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Mudah Dipelajari
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Sintaks yang jelas dan sederhana, mirip dengan bahasa Inggris
-                  sehari-hari.
-                </p>
-              </div>
-            </div>
+          <p className="text-gray-700 dark:text-gray-300">
+            Selain <code>try</code> dan <code>except</code>, Python juga
+            menyediakan <strong>finally</strong> untuk menjalankan kode apapun
+            terlepas dari error, dan <strong>raise</strong> untuk memunculkan
+            error secara manual.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mt-4">
+            <code>finally</code> berguna untuk membersihkan resource (seperti
+            file atau koneksi), dan <code>raise</code> digunakan ketika kita
+            ingin membuat aturan khusus yang harus dipatuhi pengguna.
+          </p>
 
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-full">
-                <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Komunitas Besar
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Dukungan komunitas yang luas dengan banyak tutorial dan
-                  library.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-purple-100 dark:bg-purple-900/30 p-2 rounded-full">
-                <Code className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Multiguna
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Digunakan untuk web, data science, AI, automasi, dan banyak
-                  lagi.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg border border-gray-100 dark:border-gray-700 flex items-start gap-3">
-              <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-full">
-                <Briefcase className="h-5 w-5 text-orange-600 dark:text-orange-400" />
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                  Peluang Karir
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                  Banyak digunakan di industri (Google, Netflix, Instagram).
-                </p>
-              </div>
-            </div>
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Contoh penggunaan finally dan raise
+def cek_umur(umur):
+  if umur < 0:
+    raise ValueError("Umur tidak boleh negatif")
+  else:
+    print("Umur valid:", umur)
+  
+try:
+  cek_umur(-5)
+except ValueError as e:
+  print("Terjadi error:", e)
+finally:
+  print("Selesai memeriksa umur")`}
+            />
           </div>
 
-          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-            <h3 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
-              <Info className="h-5 w-5" />
-              Statistik Popularitas
+          <div className="mt-6 bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-100 dark:border-yellow-800">
+            <h3 className="font-medium text-yellow-800 dark:text-yellow-300 mb-2">
+              Fitur & Kegunaan
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Python secara konsisten menduduki peringkat 3 besar dalam indeks
-              popularitas bahasa pemrograman TIOBE dan menduduki peringkat #1
-              dalam survei Stack Overflow Developer Survey.
-            </p>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>
+                <code>finally</code> selalu dijalankan, cocok untuk cleanup
+              </li>
+              <li>
+                <code>raise</code> memberikan kontrol lebih pada validasi data
+              </li>
+              <li>Meningkatkan keamanan dan konsistensi program</li>
+            </ul>
           </div>
         </>
       ),
     },
     {
       id: 3,
-      title: "Program Python Pertama",
+      title: "Contoh Kompleks: Validasi Data & Pembagian",
       content: (
         <>
-          <div className="mb-4">
-            <p className="text-gray-700 dark:text-gray-300">
-              Mari kita mulai dengan program Python paling sederhana: mencetak
-              teks &#34;Hello World!&#34; ke layar.
-            </p>
+          <p className="text-gray-700 dark:text-gray-300">
+            Mari lihat contoh error handling yang lebih kompleks, kita akan
+            memproses data list dan menangani error seperti pembagian dengan nol
+            dan tipe data tidak valid.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mt-4">
+            Ini sangat berguna saat memproses data dari database, di mana
+            datanya tidak selalu rapi.
+          </p>
+
+          <div className="mt-4">
+            <PyScriptTerminal
+              code={`# Proses list angka, tangani error saat membagi
+data = [10, 5, 0, "tiga", 2]
+  
+# Error handling dikombinasikan dengan perulangan for
+for item in data:
+  try:
+    hasil = 100 / item
+    print(f"100 dibagi {item} = {hasil}")
+  except ZeroDivisionError:
+    print(f"Tidak bisa membagi dengan nol: {item}")
+  except TypeError:
+    print(f"Tipe data tidak valid untuk pembagian: {item}")
+  finally:
+    print("Selesai memproses item.\\n")`}
+            />
           </div>
 
-          <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <div>
-              <pre className="text-sm bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto">
-                <code>{`print("Hello World!")`}</code>
-              </pre>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-              Coba Sendiri:
+          <div className="mt-6 bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800">
+            <h3 className="font-medium text-indigo-800 dark:text-indigo-300 mb-2">
+              Apa yang Dipelajari
             </h3>
-            <PyScriptTerminal />
-            <p className="text-sm mt-3 text-gray-600 dark:text-gray-400">
-              Ketik{" "}
-              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                print(&#34;Hello World!&#34;)
-              </code>{" "}
-              di terminal di atas dan jalankan kode untuk melihat hasilnya.
-            </p>
-          </div>
-
-          <div className="mt-6 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800">
-            <h3 className="font-medium text-green-800 dark:text-green-300 flex items-center gap-2">
-              <LightbulbIcon className="h-5 w-5" />
-              Penjelasan
-            </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Fungsi{" "}
-              <code className="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-purple-600 dark:text-purple-400">
-                print()
-              </code>{" "}
-              digunakan untuk menampilkan output ke layar. Teks yang ingin
-              ditampilkan diapit oleh tanda kutip.
-            </p>
+            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
+              <li>
+                <code>try</code> digunakan untuk membungkus kode yang rawan
+                error
+              </li>
+              <li>
+                <code>except</code> menangani error spesifik seperti pembagian
+                nol dan tipe salah
+              </li>
+              <li>
+                <code>finally</code> tetap dijalankan untuk membersihkan atau
+                logging
+              </li>
+              <li>
+                Berguna saat memproses banyak data yang tidak pasti formatnya
+              </li>
+            </ul>
           </div>
         </>
       ),
@@ -243,21 +231,20 @@ export default function IntroductionContent() {
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Python adalah bahasa pemrograman tingkat tinggi yang mudah
-                  dibaca dan dipelajari
+                  Mendeteksi error menggunakan <code>try</code> dan{" "}
+                  <code>except</code>
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Python digunakan untuk berbagai keperluan seperti web, data
-                  science, dan AI
+                  Menjalankan kode penting menggunakan <code>finally</code>
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
                 <span>
-                  Menulis program Python pertama menggunakan fungsi print()
+                  Membuat error secara manual menggunakan <code>raise</code>
                 </span>
               </li>
             </ul>
@@ -268,9 +255,11 @@ export default function IntroductionContent() {
               Langkah Selanjutnya:
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Pada materi berikutnya, kita akan mempelajari tentang variabel dan
-              tipe data dalam Python. Kamu akan belajar cara menyimpan dan
-              memanipulasi data dalam program.
+              Selanjutnya, kita akan mempelajari tentang{" "}
+              <strong>Object-Oriented Programming (OOP)</strong> dalam Python.
+              Ini adalah paradigma pemrograman yang memungkinkan kita membangun
+              program dengan struktur yang lebih rapi, modular, dan mudah
+              dikelola.
             </p>
 
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
@@ -279,20 +268,22 @@ export default function IntroductionContent() {
                 Pratinjau Materi Berikutnya
               </h4>
               <p className="text-gray-700 dark:text-gray-300 mt-2">
-                &#34;Variabel dan Tipe Data&#34; akan mengajarkan kamu tentang:
+                Kita akan mempelajari:
               </p>
               <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Cara membuat dan menggunakan variabel</span>
+                  <span>Membuat class dan object di Python</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Tipe data dasar: string, integer, float, boolean</span>
+                  <span>
+                    Menggunakan konstruktor <code>__init__()</code>
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>Konversi antar tipe data</span>
+                  <span>Konsep inheritance (pewarisan) dan polymorphism</span>
                 </li>
               </ul>
             </div>
@@ -314,7 +305,7 @@ export default function IntroductionContent() {
     try {
       // Replace with your actual API call to update progress
       await axios.post("/api/update-user-progress", {
-        courseId: courseId ?? "cm9b0ibwp0000txs80yikyep5",
+        courseId: courseId ?? "cm9b0iccd0005txs8i1b5yokv",
         progress: progress ?? stepProgress,
       });
       console.log(`Progress user ${userData.name} updated to ${stepProgress}%`);
@@ -363,7 +354,7 @@ export default function IntroductionContent() {
       name={userData.name}
       email={userData.email}
       image={userData.image}
-      pageTitle="Pengenalan Python"
+      pageTitle="Error Handling"
     >
       <div className="flex flex-col w-full space-y-6 p-4 md:p-8">
         {/* Header dengan Progress */}
@@ -371,18 +362,18 @@ export default function IntroductionContent() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="font-bold text-2xl md:text-3xl text-purple-800 dark:text-purple-300">
-                Pengenalan Python
+                Error Handling
               </h1>
               <p className="mt-2 text-gray-700 dark:text-gray-300 max-w-2xl">
-                Di materi pertama ini, kamu akan mengenal dasar-dasar Python:
-                bahasa pemrograman yang mudah dipelajari, fleksibel, dan sangat
-                populer!
+                Di materi ini, kamu akan belajar mengenai error handling dalam
+                Python. Nantinya kamu dapat tangani error dengan try, except,
+                dan menulis program yang lebih robust dan professional.
               </p>
             </div>
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm self-start">
               <Clock className="h-5 w-5 text-purple-600 dark:text-purple-400" />
               <span className="text-gray-700 dark:text-gray-300 font-medium">
-                30 menit
+                45 menit
               </span>
             </div>
           </div>
@@ -416,9 +407,9 @@ export default function IntroductionContent() {
                   {lessonSteps.map((step) => (
                     <button
                       key={step.id}
-                      //   onClick={() => {
-                      //     setCurrentStep(step.id);
-                      //   }}
+                      // onClick={() => {
+                      //   setCurrentStep(step.id);
+                      // }}
                       className={`
                         inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium
                         ${
@@ -486,8 +477,8 @@ export default function IntroductionContent() {
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
               onClick={() => {
                 handleUpdateProgress();
-                handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
-                handleGoToCourse("variables-and-data-types");
+                handleUpdateProgress("cm9b0icer0006txs8nwm29xat", 0);
+                handleGoToCourse("object-oriented-programming");
               }}
             ></NextCourseButton>
           )}
