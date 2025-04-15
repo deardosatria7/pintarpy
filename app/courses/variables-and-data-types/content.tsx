@@ -533,12 +533,6 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
     }
   };
 
-  // handler untuk navigasi ke course selanjutnya
-  const handleGoToCourse = (hrefLink: string) => {
-    router.refresh();
-    router.push(`/courses/${hrefLink}`);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -675,8 +669,8 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0ic4l0002txs8r19rezrq", 0);
-                handleGoToCourse("control-structures");
               }}
+              href="/courses/control-structures"
             ></NextCourseButton>
           )}
         </div>

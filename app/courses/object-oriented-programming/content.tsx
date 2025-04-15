@@ -473,12 +473,6 @@ uji_suara(Elang())`}
     }
   };
 
-  // handler untuk navigasi ke course selanjutnya
-  const handleGoToCourse = (hrefLink: string) => {
-    router.refresh();
-    router.push(`/courses/${hrefLink}`);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -616,8 +610,8 @@ uji_suara(Elang())`}
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0ichb0007txs8ov4ndyuz", 0);
-                handleGoToCourse("data-processing");
               }}
+              href="/courses/data-processing"
             ></NextCourseButton>
           )}
         </div>

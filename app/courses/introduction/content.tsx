@@ -344,12 +344,6 @@ export default function IntroductionContent() {
     }
   };
 
-  // handler untuk navigasi ke course selanjutnya
-  const handleGoToCourse = (hrefLink: string) => {
-    router.refresh();
-    router.push(`/courses/${hrefLink}`);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -487,8 +481,8 @@ export default function IntroductionContent() {
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
-                handleGoToCourse("variables-and-data-types");
               }}
+              href="/courses/variables-and-data-types"
             ></NextCourseButton>
           )}
         </div>

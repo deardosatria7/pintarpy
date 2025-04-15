@@ -335,12 +335,6 @@ for item in data:
     }
   };
 
-  // handler untuk navigasi ke course selanjutnya
-  const handleGoToCourse = (hrefLink: string) => {
-    router.refresh();
-    router.push(`/courses/${hrefLink}`);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -478,8 +472,8 @@ for item in data:
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0icer0006txs8nwm29xat", 0);
-                handleGoToCourse("object-oriented-programming");
               }}
+              href="/courses/object-oriented-programming"
             ></NextCourseButton>
           )}
         </div>

@@ -326,12 +326,6 @@ print(hasil_reduce)  # 10`}
     }
   };
 
-  // handler untuk navigasi ke course selanjutnya
-  const handleGoToCourse = (hrefLink: string) => {
-    router.refresh();
-    router.push(`/courses/${hrefLink}`);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -469,8 +463,8 @@ print(hasil_reduce)  # 10`}
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0icjv0008txs8o4x4o9e2", 0);
-                handleGoToCourse("mini-projects");
               }}
+              href="/courses/mini-projects"
             ></NextCourseButton>
           )}
         </div>

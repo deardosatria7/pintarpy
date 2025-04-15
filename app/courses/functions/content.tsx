@@ -408,12 +408,6 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
     }
   };
 
-  // handler untuk navigasi ke course selanjutnya
-  const handleGoToCourse = (hrefLink: string) => {
-    router.refresh();
-    router.push(`/courses/${hrefLink}`);
-  };
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -550,8 +544,8 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
               onClick={() => {
                 handleUpdateProgress();
                 handleUpdateProgress("cm9b0ic9q0004txs8mudwhsln", 0);
-                handleGoToCourse("arrays");
               }}
+              href="/courses/arrays"
             ></NextCourseButton>
           )}
         </div>
