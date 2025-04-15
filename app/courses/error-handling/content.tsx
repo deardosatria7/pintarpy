@@ -73,7 +73,7 @@ export default function ErrorHandlingContent() {
             mekanisme <strong>try-except</strong> untuk menangani error.
           </p>
           <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Dengan menggunakan <code>try</code>, kita dapat "mencoba"
+            Dengan menggunakan <code>try</code>, kita dapat &#34;mencoba&#34;
             menjalankan kode. Jika terjadi error, bagian <code>except</code>{" "}
             akan dijalankan sebagai gantinya.
           </p>
