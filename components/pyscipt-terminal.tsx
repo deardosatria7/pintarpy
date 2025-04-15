@@ -1,8 +1,8 @@
 "use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import {Skeleton} from "./ui/skeleton";
+import { Skeleton } from "./ui/skeleton";
 
 interface PyScriptTerminalProps {
   code?: string; // Bisa menerima kode Python dari props
@@ -19,7 +19,15 @@ export default function PyScriptTerminal({
     script.src = "https://pyscript.net/releases/2025.3.1/core.js";
     script.type = "module";
     script.onload = () => {
-      setTimeout(() => setLoading(false), 800); // Jeda 0.8 detik sebelum loading selesai
+      // Jeda 0.8 detik sebelum loading selesai
+      setTimeout(() => {
+        setLoading(false);
+
+        // Hapus fokus aktif yang mungkin ada setelah PyScript dimuat
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+      }, 800);
     };
     document.body.appendChild(script);
   }, []);

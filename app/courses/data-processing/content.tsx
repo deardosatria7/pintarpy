@@ -32,6 +32,7 @@ export default function DataProcessingContent() {
     image: "https://via.placeholder.com/150",
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
   useEffect(() => {
@@ -294,13 +295,15 @@ print(hasil_reduce)  # 10`}
   // handler update progress user
   const handleUpdateProgress = async (courseId?: string, progress?: 0) => {
     try {
+      setIsSubmitting(true);
       // Replace with your actual API call to update progress
       await axios.post("/api/update-user-progress", {
         courseId: courseId ?? "cm9b0ichb0007txs8ov4ndyuz",
         progress: progress ?? stepProgress,
       });
-      console.log(`Progress user ${userData.name} updated to ${stepProgress}%`);
+      setIsSubmitting(false);
     } catch (error) {
+      setIsSubmitting(false);
       if (axios.isAxiosError(error)) {
         console.error("Failed to update progress:", error);
         showErrorToast({
@@ -452,19 +455,21 @@ print(hasil_reduce)  # 10`}
           {currentStep < lessonSteps.length ? (
             <NextButton
               className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:text-white dark:hover:bg-purple-700 gap-1 hover:cursor-pointer"
-              onClick={() => {
-                handleUpdateProgress();
+              onClick={async () => {
+                await handleUpdateProgress();
                 handleNextStep();
               }}
+              isLoading={isSubmitting}
             ></NextButton>
           ) : (
             <NextCourseButton
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
-              onClick={() => {
-                handleUpdateProgress();
-                handleUpdateProgress("cm9b0icjv0008txs8o4x4o9e2", 0);
+              onClick={async () => {
+                await handleUpdateProgress();
+                await handleUpdateProgress("cm9b0icjv0008txs8o4x4o9e2", 0);
               }}
               href="/courses/mini-projects"
+              isLoading={isSubmitting}
             ></NextCourseButton>
           )}
         </div>

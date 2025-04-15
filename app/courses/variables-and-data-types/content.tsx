@@ -38,6 +38,7 @@ export default function VariablesDataTypesContent() {
     image: "https://via.placeholder.com/150",
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
   useEffect(() => {
@@ -501,13 +502,15 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
   // handler update progress user
   const handleUpdateProgress = async (courseId?: string, progress?: 0) => {
     try {
+      setIsSubmitting(true);
       // Replace with your actual API call to update progress
       await axios.post("/api/update-user-progress", {
         courseId: courseId ?? "cm9b0ic1z0001txs8hlw7vv0q",
         progress: progress ?? stepProgress,
       });
-      console.log(`Progress user ${userData.name} updated to ${stepProgress}%`);
+      setIsSubmitting(false);
     } catch (error) {
+      setIsSubmitting(false);
       if (axios.isAxiosError(error)) {
         console.error("Failed to update progress:", error);
         showErrorToast({
@@ -658,19 +661,21 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
           {currentStep < lessonSteps.length ? (
             <NextButton
               className="bg-purple-700 hover:bg-purple-800 dark:bg-purple-800 dark:text-white dark:hover:bg-purple-700 gap-1 hover:cursor-pointer"
-              onClick={() => {
-                handleUpdateProgress();
+              onClick={async () => {
+                await handleUpdateProgress();
                 handleNextStep();
               }}
+              isLoading={isSubmitting}
             ></NextButton>
           ) : (
             <NextCourseButton
               className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 dark:text-white gap-1"
-              onClick={() => {
-                handleUpdateProgress();
-                handleUpdateProgress("cm9b0ic4l0002txs8r19rezrq", 0);
+              onClick={async () => {
+                await handleUpdateProgress();
+                await handleUpdateProgress("cm9b0ic4l0002txs8r19rezrq", 0);
               }}
               href="/courses/control-structures"
+              isLoading={isSubmitting}
             ></NextCourseButton>
           )}
         </div>

@@ -35,12 +35,14 @@ export function PrevButton({
 export function NextButton({
   onClick,
   disabled = false,
+  isLoading = false,
   className = "",
   variant = "default",
   href = "#",
 }: {
   onClick?: () => void;
   disabled?: boolean;
+  isLoading?: boolean;
   className?: string;
   href?: string;
   variant?: "default" | "outline";
@@ -48,12 +50,12 @@ export function NextButton({
   return (
     <Button
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={className}
       variant={variant}
     >
       <Link href={href} className="flex items-center gap-2">
-        Selanjutnya
+        {isLoading ? "Loading..." : "Selanjutnya"}
         <ChevronRight className="h-4 w-4" />
       </Link>
     </Button>
@@ -63,12 +65,14 @@ export function NextButton({
 export function NextCourseButton({
   onClick,
   disabled = false,
+  isLoading = false,
   className = "",
   variant = "default",
   href = "#",
 }: {
   onClick?: () => void;
   disabled?: boolean;
+  isLoading?: boolean;
   className?: string;
   href?: string;
   variant?: "default" | "outline";
@@ -76,12 +80,12 @@ export function NextCourseButton({
   return (
     <Button
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={className}
       variant={variant}
     >
       <Link href={href} className="flex items-center gap-2">
-        Materi Berikutnya
+        {isLoading ? "Loading..." : "Materi Selanjutnya"}
         <ChevronRight className="h-4 w-4" />
       </Link>
     </Button>
