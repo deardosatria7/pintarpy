@@ -31,16 +31,25 @@ export default function PyScriptTerminal({
         // Jika perangkat mobile, cari komponen py-editor atau py-terminal,
         // lalu hapus focus agar keyboard tidak muncul otomatis.
         if (/Mobi|Android/i.test(navigator.userAgent)) {
-          const pyComponent = (document.querySelector("mpy-editor") ||
-            document.querySelector("py-terminal") ||
-            document.querySelector("mpy-editor")) as HTMLElement | null;
-          if (pyComponent && typeof pyComponent.blur === "function") {
+          const pyComponent = document.querySelector(
+            "py-editor, mpy-editor, py-terminal"
+          ) as HTMLElement | null;
+          if (pyComponent) {
+            // Hapus attribute autofocus (jika ada)
+            pyComponent.removeAttribute("autofocus");
+            // Tambahkan event listener untuk segera blur saat elemen mendapat focus
+            pyComponent.addEventListener("focus", (e) => {
+              (e.target as HTMLElement).blur();
+              // Pindahkan focus ke body, sehingga keyboard tidak muncul
+              document.body.focus();
+            });
+            // Pastikan juga, setelah render, focus dipindahkan ke body
             setTimeout(() => {
-              pyComponent.blur();
+              document.body.focus();
             }, 100);
           }
         }
-      }, 1500);
+      }, 800);
     };
     document.body.appendChild(script);
   }, []);
