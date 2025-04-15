@@ -521,8 +521,8 @@ while count < 3:
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0ic7d0003txs8xg8ziq6b", 0);
+                router.push("/courses/functions");
               }}
-              href="/courses/functions"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

@@ -14,20 +14,33 @@ export default function PyScriptTerminal({
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Pastikan PyScript sudah dimuat
+    // Memuat PyScript
     const script = document.createElement("script");
     script.src = "https://pyscript.net/releases/2025.3.1/core.js";
     script.type = "module";
     script.onload = () => {
-      // Jeda 0.8 detik sebelum loading selesai
+      // Setelah PyScript dimuat, tunggu 800ms agar proses rendering selesai
       setTimeout(() => {
         setLoading(false);
 
-        // Hapus fokus aktif yang mungkin ada setelah PyScript dimuat
+        // Hapus focus aktif, jika ada
         if (document.activeElement instanceof HTMLElement) {
           document.activeElement.blur();
         }
-      }, 800);
+
+        // Jika perangkat mobile, cari komponen py-editor atau py-terminal,
+        // lalu hapus focus agar keyboard tidak muncul otomatis.
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+          const pyComponent = (document.querySelector("mpy-editor") ||
+            document.querySelector("py-terminal") ||
+            document.querySelector("mpy-editor")) as HTMLElement | null;
+          if (pyComponent && typeof pyComponent.blur === "function") {
+            setTimeout(() => {
+              pyComponent.blur();
+            }, 100);
+          }
+        }
+      }, 1500);
     };
     document.body.appendChild(script);
   }, []);
@@ -44,22 +57,20 @@ export default function PyScriptTerminal({
 
       {/* Render PyScript dengan dangerouslySetInnerHTML */}
       {loading ? (
-        <>
-          <div className="flex flex-col items-center justify-center gap-4">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-          </div>
-        </>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+        </div>
       ) : (
         <div
           className="z-10"
           dangerouslySetInnerHTML={{
             __html: `
             <div>
-            <style>
+              <style>
                 /* Styling untuk Editor */
                 .mpy-editor-box,
                 .py-editor-box {
@@ -118,15 +129,15 @@ export default function PyScriptTerminal({
                     margin-top: 10px;
                     overflow-x: auto;
                 }
-            </style>
+              </style>
 
-            <script type="mpy-editor">
-              ${code}
-            </script>
+              <script type="mpy-editor">
+                ${code}
+              </script>
 
-            <py-terminal></py-terminal>
+              <py-terminal></py-terminal>
             </div>
-          `,
+            `,
           }}
         />
       )}

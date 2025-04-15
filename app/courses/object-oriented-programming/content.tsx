@@ -614,8 +614,8 @@ uji_suara(Elang())`}
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0ichb0007txs8ov4ndyuz", 0);
+                router.push("/courses/data-processing");
               }}
-              href="/courses/data-processing"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

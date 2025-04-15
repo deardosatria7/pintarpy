@@ -673,8 +673,8 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0ic4l0002txs8r19rezrq", 0);
+                router.push("/courses/control-structures");
               }}
-              href="/courses/control-structures"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

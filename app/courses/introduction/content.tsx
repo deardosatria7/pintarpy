@@ -485,8 +485,8 @@ export default function IntroductionContent() {
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0ic1z0001txs8hlw7vv0q", 0);
+                router.push("/courses/variables-and-data-types");
               }}
-              href="/courses/variables-and-data-types"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

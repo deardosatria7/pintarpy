@@ -476,8 +476,8 @@ for item in data:
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0icer0006txs8nwm29xat", 0);
+                router.push("/courses/object-oriented-programming");
               }}
-              href="/courses/object-oriented-programming"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

@@ -548,8 +548,8 @@ print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0ic9q0004txs8mudwhsln", 0);
+                router.push("/courses/arrays");
               }}
-              href="/courses/arrays"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

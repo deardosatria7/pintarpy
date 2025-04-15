@@ -433,8 +433,8 @@ print(mahasiswa)`}
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0iccd0005txs8i1b5yokv", 0);
+                router.push("/courses/error-handling");
               }}
-              href="/courses/error-handling"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}

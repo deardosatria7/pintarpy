@@ -467,8 +467,8 @@ print(hasil_reduce)  # 10`}
               onClick={async () => {
                 await handleUpdateProgress();
                 await handleUpdateProgress("cm9b0icjv0008txs8o4x4o9e2", 0);
+                router.push("/courses/mini-projects");
               }}
-              href="/courses/mini-projects"
               isLoading={isSubmitting}
             ></NextCourseButton>
           )}
