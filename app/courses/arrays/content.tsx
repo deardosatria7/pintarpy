@@ -1,20 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  ChevronRight,
-  BookOpen,
-  CheckCircle,
-  Clock,
-  PlayCircle,
-  Circle,
-} from "lucide-react";
+import { CheckCircle, Clock, PlayCircle, Circle } from "lucide-react";
 
 import SidebarNavigation from "@/components/sidebar-navigation";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList } from "@/components/ui/tabs";
-import PyScriptTerminal from "@/components/pyscipt-terminal";
 import {
   PrevButton,
   NextButton,
@@ -23,234 +15,17 @@ import {
 import axios from "axios";
 import { Toaster } from "sonner";
 import { showErrorToast } from "@/components/ui/error-toast";
+import { arraysLessonSteps } from "../data";
+import { useUser } from "@/hooks/use-user";
 
 export default function ArraysContent() {
   const router = useRouter();
-  const [userData, setUserData] = useState({
-    name: "User",
-    email: "",
-    image: "https://via.placeholder.com/150",
-  });
-  const [isLoading, setIsLoading] = useState(true);
+  const { userData, isLoading } = useUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
-  useEffect(() => {
-    // Fetch user data on component mount
-    const checkAuth = async () => {
-      try {
-        // Replace this with your actual auth check method
-        const response = await axios.get("/api/fetch-user-data");
-        const userData = await response.data.data;
-        setUserData({
-          name: userData.name,
-          email: userData.email,
-          image: userData.image,
-        });
-      } catch (error: unknown) {
-        if (axios.isAxiosError(error) && error.response) {
-          console.error("Authentication error:", error.response);
-          router.push(
-            `/error?message=${error.response.data.message}&title=${error.response.data.title}&code=${error.response.status}&showRefresh=true&returnUrl=/login`
-          );
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, [router]);
-
   // Definisi konten untuk setiap tahap pembelajaran
-  const lessonSteps = [
-    {
-      id: 1,
-      title: "List dalam Python",
-      content: (
-        <>
-          <p className="text-gray-700 dark:text-gray-300">
-            <strong>List</strong> adalah struktur data yang dapat menyimpan
-            banyak item dalam satu variabel. Item dalam list dapat diubah
-            (mutable) dan dapat berisi berbagai tipe data.
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            List ditulis dengan tanda kurung siku <code>[]</code>.
-          </p>
-
-          <div className="mt-4">
-            <PyScriptTerminal
-              code={`# Contoh list
-buah = ["apel", "jeruk", "pisang"]
-print(buah[0])  # Mengakses elemen pertama
-buah.append("mangga")  # Menambahkan item
-buah.remove("jeruk")   # Menghapus item
-print(buah)`}
-            />
-          </div>
-
-          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-            <h3 className="font-medium text-blue-800 dark:text-blue-300 mb-2">
-              Fitur & Kegunaan
-            </h3>
-            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
-              <li>Dapat diubah (mutable)</li>
-              <li>Dapat menyimpan berbagai tipe data</li>
-              <li>
-                Memiliki banyak method built-in seperti <code>.append()</code>,{" "}
-                <code>.remove()</code>, <code>.sort()</code>, dll.
-              </li>
-              <li>Sangat cocok untuk daftar yang sering diubah</li>
-            </ul>
-          </div>
-        </>
-      ),
-    },
-    {
-      id: 2,
-      title: "Tuple dalam Python",
-      content: (
-        <>
-          <p className="text-gray-700 dark:text-gray-300">
-            <strong>Tuple</strong> mirip dengan list, tetapi bersifat tetap
-            (immutable). Setelah dibuat, isinya tidak bisa diubah.
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Tuple ditulis dengan tanda kurung <code>()</code>.
-          </p>
-
-          <div className="mt-4">
-            <PyScriptTerminal
-              code={`# Contoh tuple
-warna = ("merah", "hijau", "biru")
-print(warna[1])  # Mengakses elemen kedua
-warna[0] = "kuning"  # Error! Tuple tidak bisa diubah`}
-            />
-          </div>
-
-          <div className="mt-6 bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-100 dark:border-yellow-800">
-            <h3 className="font-medium text-yellow-800 dark:text-yellow-300 mb-2">
-              Fitur & Kegunaan
-            </h3>
-            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
-              <li>Immutability (tidak bisa diubah)</li>
-              <li>Lebih cepat dibanding list</li>
-              <li>Cocok untuk data tetap seperti koordinat, tanggal, dll.</li>
-            </ul>
-          </div>
-        </>
-      ),
-    },
-    {
-      id: 3,
-      title: "Dictionary dalam Python",
-      content: (
-        <>
-          <p className="text-gray-700 dark:text-gray-300">
-            <strong>Dictionary</strong> adalah struktur data yang menyimpan
-            pasangan key dan value. Setiap item memiliki &#34;kunci&#34; unik.
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 mt-4">
-            Dictionary ditulis menggunakan tanda kurung kurawal{" "}
-            <code>{`{}`}</code>.
-          </p>
-
-          <div className="mt-4">
-            <PyScriptTerminal
-              code={`# Contoh dictionary
-mahasiswa = {"nama": "Andi", "umur": 20, "jurusan": "Informatika"}
-print(mahasiswa["nama"])  # Mengakses data dengan key
-mahasiswa["umur"] = 21    # Mengubah nilai
-mahasiswa["angkatan"] = 2022  # Menambahkan key-value baru
-print(mahasiswa)`}
-            />
-          </div>
-
-          <div className="mt-6 bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800">
-            <h3 className="font-medium text-green-800 dark:text-green-300 mb-2">
-              Fitur & Kegunaan
-            </h3>
-            <ul className="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-1">
-              <li>Akses cepat melalui key</li>
-              <li>Dapat menyimpan struktur data kompleks</li>
-              <li>Cocok untuk menyimpan data berlabel seperti JSON</li>
-            </ul>
-          </div>
-        </>
-      ),
-    },
-    {
-      id: 4,
-      title: "Ringkasan & Langkah Selanjutnya",
-      content: (
-        <>
-          <div className="bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border border-purple-100 dark:border-purple-800 mb-6">
-            <h3 className="font-medium text-purple-800 dark:text-purple-300 text-lg mb-3">
-              Apa yang sudah kita pelajari:
-            </h3>
-            <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>List: struktur data fleksibel dan dapat diubah</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>Tuple: struktur data tetap yang aman dari perubahan</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                <span>Dictionary: pasangan key-value yang efisien</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800/50 p-5 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-medium text-gray-900 dark:text-gray-100 text-lg mb-3">
-              Langkah Selanjutnya:
-            </h3>
-            <p className="text-gray-700 dark:text-gray-300 mb-4">
-              Pada materi selanjutnya, kita akan belajar tentang{" "}
-              <strong>Error Handling</strong> dalam Python menggunakan{" "}
-              <code>try</code>, <code>except</code>, <code>finally</code>, dan{" "}
-              <code>raise</code>. Ini penting untuk menangani situasi di mana
-              program bisa mengalami kesalahan agar tidak langsung berhenti.
-            </p>
-
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-              <h4 className="font-medium text-blue-800 dark:text-blue-300 flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                Pratinjau Materi Berikutnya
-              </h4>
-              <p className="text-gray-700 dark:text-gray-300 mt-2">
-                Kita akan mempelajari:
-              </p>
-              <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
-                <li className="flex items-center gap-2">
-                  <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>
-                    Mendeteksi error dengan blok <code>try</code> dan{" "}
-                    <code>except</code>
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>
-                    Menjalankan kode apapun di blok <code>finally</code>
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <ChevronRight className="h-4 w-4 text-blue-500" />
-                  <span>
-                    Menghasilkan error secara manual dengan <code>raise</code>
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </>
-      ),
-    },
-  ];
+  const lessonSteps = arraysLessonSteps;
 
   // Mendapatkan konten untuk tahap saat ini
   const currentLesson =
