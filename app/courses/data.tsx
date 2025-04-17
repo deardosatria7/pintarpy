@@ -14,6 +14,7 @@ import {
   Type,
   Variable,
 } from "lucide-react";
+import CodeBlock from "@/components/code-block";
 
 // courses/introduction
 export const introductionLessonSteps: LessonSteps[] = [
@@ -271,7 +272,7 @@ export const variablesAndDataTypesLessonSteps: LessonSteps[] = [
         </p>
 
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Membuat variabel
 nama = "Budi"
 umur = 25
@@ -281,7 +282,7 @@ tinggi = 175.5
 print("Nama:", nama)
 print("Umur:", umur, "tahun")
 print("Tinggi:", tinggi, "cm")`}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
 
         <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
@@ -399,13 +400,13 @@ print("Tinggi:", tinggi, "cm")`}
             </code>{" "}
             untuk memeriksa tipe data dari sebuah variabel.
           </p>
-          <PyScriptTerminal
+          <CodeBlock
             code={`nama = "Budi"
 print(type(nama))  # Output: <class 'str'>
 
 umur = 25
 print(type(umur))  # Output: <class 'int'>`}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
       </>
     ),
@@ -423,7 +424,7 @@ print(type(umur))  # Output: <class 'int'>`}
         </div>
 
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Konversi ke string
 umur = 25
 umur_str = str(umur)
@@ -438,7 +439,7 @@ print(angka_int + 50)  # Output: 150
 angka_int = 75
 angka_float = float(angka_int)
 print(angka_float)  # Output: 75.0`}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
 
         <div className="mt-6">
@@ -449,13 +450,13 @@ print(angka_float)  # Output: 75.0`}
             <p className="text-gray-700 dark:text-gray-300 mb-2">
               Cobalah kode berikut di interpreter Python:
             </p>
-            <PyScriptTerminal
+            <CodeBlock
               code={`# Konversi string ke float
 tinggi_str = "175.5"
 tinggi_float = float(tinggi_str)
 tinggi_meter = tinggi_float / 100
 print("Tinggi Anda dalam meter adalah:", tinggi_meter, "m")`}
-            ></PyScriptTerminal>
+            ></CodeBlock>
           </div>
         </div>
 
@@ -832,7 +833,7 @@ while count < 5:
           percabangan dan perulangan. Berikut beberapa contoh kode yang bisa
           kamu coba:
         </p>
-        <PyScriptTerminal
+        <CodeBlock
           code={`# Contoh 1: Percabangan sederhana
 nilai = 85
 if nilai >= 80:
@@ -963,7 +964,7 @@ export const functionsLessonSteps: LessonSteps[] = [
           menyebutkan namanya beserta tanda kurung.
         </p>
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Mendefinisikan fungsi sederhana
 def sapa(nama):
     """
@@ -975,7 +976,7 @@ def sapa(nama):
 hasil = sapa("Budi")
 print(hasil)  # Output: Halo, Budi!
 `}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
         <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800">
           <h3 className="font-medium text-purple-800 dark:text-purple-300 flex items-center gap-2">
@@ -1004,7 +1005,7 @@ print(hasil)  # Output: Halo, Budi!
           pemanggilan.
         </p>
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`def perkenalan(nama, usia=18):
     """
     Mengenalkan seseorang dengan nama dan usia.
@@ -1015,7 +1016,7 @@ print(hasil)  # Output: Halo, Budi!
 perkenalan("Andi")           # Menggunakan usia default
 perkenalan("Budi", 25)        # Menentukan usia secara eksplisit
 `}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
         <p className="text-gray-700 dark:text-gray-300 mt-4">
           Pada contoh di atas, parameter{" "}
@@ -1042,7 +1043,7 @@ perkenalan("Budi", 25)        # Menentukan usia secara eksplisit
           untuk mendokumentasikan fungsi.
         </p>
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`def tambah(a, b):
     """
     Mengembalikan hasil penjumlahan dari dua angka.
@@ -1053,7 +1054,7 @@ perkenalan("Budi", 25)        # Menentukan usia secara eksplisit
 hasil = tambah(5, 7)
 print("Hasil:", hasil)  # Output: Hasil: 12
   `}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
         <p className="text-gray-700 dark:text-gray-300 mt-4">
           Docstring pada fungsi di atas menjelaskan apa yang dilakukan fungsi
@@ -1075,7 +1076,7 @@ print("Hasil:", hasil)  # Output: Hasil: 12
           dapat diakses di mana saja.
         </p>
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`x = "global"
   
 def contoh():
@@ -1085,7 +1086,7 @@ def contoh():
 contoh()
 print("Di luar fungsi:", x)
   `}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
         <p className="text-gray-700 dark:text-gray-300 mt-4">
           Pada contoh di atas, variabel{" "}
@@ -1113,7 +1114,7 @@ print("Di luar fungsi:", x)
           kecil.
         </p>
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`def faktorial(n):
     """
     Menghitung faktorial dari sebuah angka secara rekursif.
@@ -1125,7 +1126,7 @@ print("Di luar fungsi:", x)
   
 print("Faktorial 5:", faktorial(5))  # Output: Faktorial 5: 120
   `}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
         <p className="text-gray-700 dark:text-gray-300 mt-4">
           Contoh di atas menggunakan rekursi untuk menghitung faktorial dari
@@ -1145,13 +1146,13 @@ print("Faktorial 5:", faktorial(5))  # Output: Faktorial 5: 120
           digunakan sebagai argumen untuk fungsi lain.
         </p>
         <div className="bg-gray-50 dark:bg-gray-800/80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Fungsi lambda untuk menjumlahkan dua angka
 tambah = lambda a, b: a + b
   
 print("Hasil lambda:", tambah(3, 4))  # Output: Hasil lambda: 7
   `}
-          ></PyScriptTerminal>
+          ></CodeBlock>
         </div>
         <p className="text-gray-700 dark:text-gray-300 mt-4">
           Fungsi lambda memungkinkan penulisan fungsi secara ringkas tanpa harus
@@ -1264,7 +1265,7 @@ export const arraysLessonSteps: LessonSteps[] = [
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Contoh list
 buah = ["apel", "jeruk", "pisang"]
 print(buah[0])  # Mengakses elemen pertama
@@ -1305,7 +1306,7 @@ print(buah)`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Contoh tuple
 warna = ("merah", "hijau", "biru")
 print(warna[1])  # Mengakses elemen kedua
@@ -1341,7 +1342,7 @@ warna[0] = "kuning"  # Error! Tuple tidak bisa diubah`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Contoh dictionary
 mahasiswa = {"nama": "Andi", "umur": 20, "jurusan": "Informatika"}
 print(mahasiswa["nama"])  # Mengakses data dengan key
@@ -1456,7 +1457,7 @@ export const errorHandlingLessonSteps: LessonSteps[] = [
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Contoh error handling
 try:
   angka = '0'  # Ganti dengan angka yang ingin dibagi
@@ -1502,7 +1503,7 @@ except TypeError:
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Contoh penggunaan finally dan raise
 def cek_umur(umur):
   if umur < 0:
@@ -1552,7 +1553,7 @@ finally:
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Proses list angka, tangani error saat membagi
 data = [10, 5, 0, "tiga", 2]
   
@@ -1702,7 +1703,7 @@ export const OOPLessonSteps: LessonSteps[] = [
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Membuat class
 class Mahasiswa:
   def __init__(self, nama, jurusan):
@@ -1759,7 +1760,7 @@ m1.perkenalan()`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Parent class
 class Mahasiswa:
   def __init__(self, nama):
@@ -1815,7 +1816,7 @@ m2.belajar()   # Method dari child`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`class Mahasiswa:
   def __init__(self, nama):
     self.nama = nama
@@ -1865,7 +1866,7 @@ m3.info()`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`class AkunBank:
   def __init__(self, saldo_awal):
     self.__saldo = saldo_awal  # atribut privat
@@ -1914,7 +1915,7 @@ print(akun.__saldo)  # Error: tidak bisa diakses langsung`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`class Burung:
   def suara(self):
     print("Burung bersuara...")
@@ -2055,7 +2056,7 @@ export const dataProcessingLessonSteps: LessonSteps[] = [
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Membuat list kuadrat dari 0-4
 kuadrat = [x**2 for x in range(5)]
 print(kuadrat)  # Output: [0, 1, 4, 9, 16]
@@ -2091,7 +2092,7 @@ print(genap)  # Output: [0, 2, 4, 6, 8]`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`# Membuat dictionary kuadrat dari 1-5
 kuadrat = {x: x**2 for x in range(1, 6)}
 print(kuadrat)  # Output: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
@@ -2127,7 +2128,7 @@ print(ganjil_kuadrat)  # Output: {1: 1, 3: 9, 5: 25}`}
         </p>
 
         <div className="mt-4">
-          <PyScriptTerminal
+          <CodeBlock
             code={`from functools import reduce
       
 # map: menerapkan fungsi ke semua item

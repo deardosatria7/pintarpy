@@ -11,6 +11,7 @@ import {
   Code,
   LogOutIcon,
   FlaskConical,
+  Terminal,
 } from "lucide-react";
 
 import {
@@ -59,6 +60,11 @@ const navigationItems = [
       { title: "Data Processing", href: "/courses/data-processing" },
       { title: "Proyek Mini", href: "/courses/proyek-mini" },
     ],
+  },
+  {
+    title: "Terminal",
+    icon: Terminal,
+    href: "/terminal",
   },
   {
     title: "Playground",
