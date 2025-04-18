@@ -3,19 +3,16 @@ import { redirect } from "next/navigation";
 import TerminalContent from "./content";
 import { AlertCircle } from "lucide-react";
 
-type Props = {
-  searchParams: {
-    // Next js 15
-    code: Promise<string>;
-  };
-};
-
-export default async function TerminalPage({ searchParams }: Props) {
+export default async function TerminalPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ code: string }>;
+}) {
   const session = await auth();
   if (!session?.user) return redirect("/login");
 
   // tunggu promise (demo penggunaan Promise)
-  const raw = await Promise.resolve(searchParams.code || "");
+  const raw = (await searchParams)?.code || "";
   let decoded = "";
   try {
     decoded = atob(raw);
