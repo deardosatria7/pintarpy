@@ -58,7 +58,7 @@ const navigationItems = [
       { title: "Error Handling", href: "/courses/error-handling" },
       { title: "OOP", href: "/courses/object-oriented-programming" },
       { title: "Data Processing", href: "/courses/data-processing" },
-      { title: "Proyek Mini", href: "/courses/proyek-mini" },
+      { title: "Proyek Mini", href: "/courses/mini-projects" },
     ],
   },
   {

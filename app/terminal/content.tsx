@@ -7,7 +7,10 @@ import { AlertCircle, TerminalIcon, Info, Play } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import BackButton from "@/components/back-button";
 
-export default function TerminalContent() {
+interface TerminalProps {
+  code?: string;
+}
+export default function TerminalContent({ code }: TerminalProps) {
   const { userData } = useUser();
   const [showTip] = useState(true);
 
@@ -67,7 +70,7 @@ export default function TerminalContent() {
           </div>
 
           <div className="p-1 sm:p-2">
-            <PyScriptTerminal />
+            <PyScriptTerminal code={code} />
           </div>
         </div>
 
@@ -98,7 +101,7 @@ export default function TerminalContent() {
             </ul>
           </AlertDescription>
         </Alert>
-        <BackButton className="w-[150px] hover:cursor-pointer" />
+        <BackButton className="w-full hover:cursor-pointer" />
       </div>
     </SidebarNavigation>
   );
