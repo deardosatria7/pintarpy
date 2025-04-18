@@ -137,6 +137,7 @@ export default async function CoursesPage() {
     "7. Object-Oriented Programming (OOP)":
       "/courses/object-oriented-programming",
     "8. Data Processing": "/courses/data-processing",
+    "9. Mini Projects": "/courses/mini-projects",
     // Tambahkan sesuai kebutuhan
   };
 
