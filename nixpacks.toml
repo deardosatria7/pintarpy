@@ -1,0 +1,22 @@
+# Mengatur dependencies yang dibutuhkan di tahap awal
+[phases.setup]
+nixPkgs = ["nodejs", "postgresql"]
+
+# Install dependency produksi saja, lebih ringan
+[phases.install]
+cmds = ["npm ci --omit=dev"]
+
+# Jalankan Prisma generate dan build Next.js
+[phases.build]
+cmds = [
+  "npx prisma generate",
+  "npm run build"
+]
+
+# Jalankan aplikasi (sesuaikan jika pakai custom start script)
+[phases.start]
+cmd = "npm run start"
+
+# Menonaktifkan Next.js telemetry agar lebih ringan
+[variables]
+NEXT_TELEMETRY_DISABLED = "1"
