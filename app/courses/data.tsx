@@ -632,9 +632,9 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
             Langkah Selanjutnya:
           </h3>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            Pada materi berikutnya, kita akan mempelajari tentang operator dan
-            ekspresi dalam Python. Kamu akan belajar cara melakukan operasi
-            matematika, perbandingan, dan logika.
+            Pada materi berikutnya, kita akan mempelajari tentang struktur
+            kontrol dalam Python. Kamu akan belajar bagaimana membuat alur
+            logika program menggunakan percabangan dan perulangan.
           </p>
 
           <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
@@ -643,24 +643,34 @@ print(warna)  # Output: {'hijau', 'merah', 'biru', 'kuning'}`}</code>
               Pratinjau Materi Berikutnya
             </h4>
             <p className="text-gray-700 dark:text-gray-300 mt-2">
-              &#34;Operator dan Ekspresi&#34; akan mengajarkan kamu tentang:
+              &#34;Struktur Kontrol&#34; akan mengajarkan kamu tentang:
             </p>
             <ul className="mt-2 space-y-1 text-gray-600 dark:text-gray-400">
               <li className="flex items-center gap-2">
                 <ChevronRight className="h-4 w-4 text-blue-500" />
-                <span>Operator aritmatika (+, -, *, /, %)</span>
+                <span>
+                  Percabangan dengan <code>if</code>, <code>elif</code>, dan{" "}
+                  <code>else</code>
+                </span>
               </li>
               <li className="flex items-center gap-2">
                 <ChevronRight className="h-4 w-4 text-blue-500" />
-                <span>Operator perbandingan (==, !=, &gt;, &lt;)</span>
+                <span>
+                  Perulangan dengan <code>for</code> dan <code>while</code>
+                </span>
               </li>
               <li className="flex items-center gap-2">
                 <ChevronRight className="h-4 w-4 text-blue-500" />
-                <span>Operator logika (and, or, not)</span>
+                <span>
+                  Pemanfaatan <code>break</code>, <code>continue</code>, dan{" "}
+                  <code>pass</code>
+                </span>
               </li>
               <li className="flex items-center gap-2">
                 <ChevronRight className="h-4 w-4 text-blue-500" />
-                <span>Prioritas operator dalam ekspresi</span>
+                <span>
+                  Penggunaan struktur kontrol dalam studi kasus sederhana
+                </span>
               </li>
             </ul>
           </div>
