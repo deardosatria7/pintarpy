@@ -8,13 +8,12 @@ import {
   Globe,
   Mail,
   Share2,
+  UserRound,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import BackButton from "@/components/back-button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import Image from "next/image";
-import defaultAvatar from "@/public/default-avatar.png";
 
 export default function AboutPage() {
   return (
@@ -146,12 +145,8 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-6">
               {/* Founder 1 */}
               <div className="flex flex-col items-center">
-                <div className="w-40 h-40 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-gray-800 shadow-lg transform transition-transform hover:scale-105">
-                  <Image
-                    src={defaultAvatar}
-                    alt="Foto Pendiri 1"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-40 h-40 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-gray-800 shadow-lg transform transition-transform hover:scale-105 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                  <UserRound className="w-20 h-20 text-gray-400" />
                 </div>
                 <h4 className="font-bold text-gray-800 dark:text-gray-200">
                   Nurcahya Pradana
@@ -163,12 +158,8 @@ export default function AboutPage() {
 
               {/* Founder 2 */}
               <div className="flex flex-col items-center">
-                <div className="w-40 h-40 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-gray-800 shadow-lg transform transition-transform hover:scale-105">
-                  <Image
-                    src={defaultAvatar}
-                    alt="Foto Pendiri 1"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-40 h-40 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-gray-800 shadow-lg transform transition-transform hover:scale-105 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                  <UserRound className="w-20 h-20 text-gray-400" />
                 </div>
                 <h4 className="font-bold text-gray-800 dark:text-gray-200">
                   Puspanda Hatta
@@ -180,12 +171,8 @@ export default function AboutPage() {
 
               {/* Developer 1 */}
               <div className="flex flex-col items-center">
-                <div className="w-40 h-40 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-gray-800 shadow-lg transform transition-transform hover:scale-105">
-                  <Image
-                    src={defaultAvatar}
-                    alt="Foto Pendiri 1"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-40 h-40 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-gray-800 shadow-lg transform transition-transform hover:scale-105 flex items-center justify-center bg-gray-100 dark:bg-gray-700">
+                  <UserRound className="w-20 h-20 text-gray-400" />
                 </div>
                 <h4 className="font-bold text-gray-800 dark:text-gray-200">
                   Deardo Satria
