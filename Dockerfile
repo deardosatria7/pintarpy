@@ -6,7 +6,7 @@ WORKDIR /app
 
 # 3. Copy package files and install only prod deps
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 # 4. Copy all source files
 COPY . .
