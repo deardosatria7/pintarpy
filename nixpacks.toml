@@ -4,7 +4,7 @@ nixPkgs = ["nodejs", "postgresql"]
 
 # Install dependency produksi saja, lebih ringan
 [phases.install]
-cmds = ["npm ci --omit=dev --include=optional sharp"]
+cmds = ["npm ci --omit=dev"]
 
 # Jalankan Prisma generate dan build Next.js
 [phases.build]
