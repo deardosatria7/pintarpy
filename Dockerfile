@@ -18,8 +18,8 @@ RUN npx prisma generate
 RUN npm run build
 
 # 7. Set environment and expose port
-ENV PORT=3000
-EXPOSE 3000
+ENV PORT=3001
+EXPOSE 3001
 
 # 8. Start Next.js
 CMD ["npm", "start"]

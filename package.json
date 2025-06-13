@@ -6,7 +6,7 @@
     "prebuild": "prisma generate",
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start -H 0.0.0.0",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
