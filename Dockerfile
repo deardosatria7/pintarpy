@@ -11,6 +11,7 @@ RUN npm ci
 # 4. Copy all source files
 COPY . .
 
+ENV DATABASE_URL="postgresql://postgres:m1xhxqwjffutxsxc@pintarpy-pintarpydb-aytc9a:5432/postgres"
 # add this
 RUN npx prisma migrate dev --name move to new db
 
