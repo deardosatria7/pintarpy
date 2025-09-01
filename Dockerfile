@@ -11,6 +11,9 @@ RUN npm ci
 # 4. Copy all source files
 COPY . .
 
+# add this
+RUN npx prisma migrate dev --name move to new db
+
 # 5. Generate Prisma client
 RUN npx prisma generate
 
