@@ -1,8 +1,8 @@
 "use client";
 
-import {useState, Suspense} from "react";
+import { useState, Suspense } from "react";
 import dynamic from "next/dynamic";
-import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
   CardContent,
@@ -10,13 +10,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Code} from "lucide-react";
+import { Code } from "lucide-react";
 import BackButton from "./back-button";
 
 // Import PyScriptTerminal dynamically with SSR enabled
 const PyScriptTerminal = dynamic(
   () => import("@/components/pyscipt-terminal"),
-  {ssr: false}
+  { ssr: false }
 );
 
 export default function PlaygroundComponent() {
@@ -78,33 +78,54 @@ print("Data yang sudah diurutkan:", data)
 `,
     },
     enkripsi: {
-      title: "Enkripsi Password",
-      description: "Mengubah string password menjadi string acak lainnya.",
-      code: `# Fungsi untuk mengenkripsi teks dengan kunci tertentu
-def encrypt(password, key):
-    encrypted = ""
-    for i in range(len(password)):
-        encrypted += chr(ord(password[i]) ^ ord(key[i % len(key)]))  # XOR setiap karakter dengan kunci
-    return encrypted
+      title: "Hitung Investasi",
+      description: "Menghitung hasil akhir untuk investasi per bulan.",
+      code: `# ============================================
+# Parameter (silakan ubah sesuai kebutuhan)
+# ============================================
+total_pmt = 1_000_000   # setoran bulanan total (Rp)
+years = 10              # jangka waktu (tahun)
+porsi_pasaruang = 0.3   # proporsi ke pasar uang (0.0 - 1.0)
+porsi_obligasi = 0.7    # proporsi ke obligasi (0.0 - 1.0)
 
-# Fungsi untuk mendekripsi teks yang telah dienkripsi
-def decrypt(encrypted_text, key):
-    decrypted = ""
-    for i in range(len(encrypted_text)):
-        decrypted += chr(ord(encrypted_text[i]) ^ ord(key[i % len(key)]))  # XOR kembali untuk mendapatkan teks asli
-    return decrypted
+rate_pasaruang = 0.06   # return tahunan pasar uang per tahun
+rate_obligasi = 0.077   # return tahunan obligasi per tahun
+# ============================================
 
-# Contoh penggunaan
-password = "password_anda"
-key = "YOUR_KEY"  # Kunci enkripsi
+# Fungsi menghitung Future Value Anuitas
+def future_value_annuity(pmt, annual_rate, years):
+    r = (1 + annual_rate) ** (1/12) - 1   # konversi bunga bulanan
+    n = years * 12                        # total bulan
+    fv = pmt * ((1 + r) ** n - 1) / r
+    return fv
 
-# Enkripsi
-encrypted_password = encrypt(password, key)
-print(f"Password terenkripsi: {encrypted_password}")
+# Fungsi format rupiah
+def format_rupiah(angka: int) -> str:
+    return f"Rp {angka:,.0f}".replace(",", ".")
 
-# Dekripsi
-decrypted_password = decrypt(encrypted_password, key)
-print(f"Password didekripsi: {decrypted_password}")
+# Hitung modal
+modal = total_pmt * 12 * years
+
+# Hitung setoran ke masing-masing instrumen
+pmt_pasaruang = total_pmt * porsi_pasaruang
+pmt_obligasi = total_pmt * porsi_obligasi
+
+# Hitung akumulasi
+fv_pasaruang = future_value_annuity(pmt_pasaruang, rate_pasaruang, years)
+fv_obligasi = future_value_annuity(pmt_obligasi, rate_obligasi, years)
+fv_total = fv_pasaruang + fv_obligasi
+
+# Cetak hasil
+print(f"Skema investasi {format_rupiah(total_pmt)} per bulan dalam {years} tahun")
+print(f"Pembagian: {int(porsi_pasaruang*100)}% Pasar Uang, {int(porsi_obligasi*100)}% Obligasi")
+print("")
+print("Hasil")
+print("Pasar Uang (6%):", format_rupiah(round(fv_pasaruang)))
+print("Obligasi (7.7%):", format_rupiah(round(fv_obligasi)))
+print("")
+print("Total Modal:", format_rupiah(modal))
+print("Total Akumulasi:", format_rupiah(round(fv_total)))
+print("Total Untung:", format_rupiah(round(fv_total - modal)))
 `,
     },
   };
