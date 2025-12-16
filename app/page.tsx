@@ -195,7 +195,7 @@ print(sapa(${
                       href="/playground"
                       className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 sm:px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus:outline-none focus-visible:ring-offset-2"
                     >
-                      Coba Sekarang
+                      Playground
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                     <Link
