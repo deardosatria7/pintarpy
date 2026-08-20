@@ -8,8 +8,6 @@ services:
   app:
     build: .
     container_name: pintarpy
-    ports:
-      - "3001:3001"
     environment:
       DATABASE_URL: postgresql://postgres:postgres@shared-postgres:5432/zenio_pintarpy
       NODE_ENV: production
