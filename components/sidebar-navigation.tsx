@@ -33,7 +33,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThemeToggle } from "./theme-toggle";
-import { signOut } from "next-auth/react";
+import { authClient } from "@/lib/auth-client";
 
 // Navigation data structure dengan penambahan grup "Materi"
 const navigationItems = [
@@ -82,7 +82,7 @@ const navigationItems = [
     href: "/login",
     onclick: () => {
       // Logout logic here
-      signOut();
+      authClient.signOut();
     },
   },
 ];

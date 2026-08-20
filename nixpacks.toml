@@ -6,10 +6,9 @@ nixPkgs = ["nodejs", "postgresql"]
 [phases.install]
 cmds = ["npm ci --omit=dev"]
 
-# Jalankan Prisma generate dan build Next.js
+# Build Next.js
 [phases.build]
 cmds = [
-  "npx prisma generate",
   "npm run build"
 ]
 

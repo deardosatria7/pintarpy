@@ -1,4 +1,7 @@
-import { auth } from "@/auth";
+import { asc, eq } from "drizzle-orm";
+import { db } from "@/db";
+import { course as courseTable, userCourseProgress } from "@/db/schema";
+import { getSession } from "@/lib/actions/sessions";
 import { redirect } from "next/navigation";
 import { BookOpen, CheckCircle, ChevronRight, Clock } from "lucide-react";
 
@@ -14,11 +17,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import prisma from "@/lib/prisma";
 import Link from "next/link";
 
 export default async function CoursesPage() {
-  const session = await auth();
+  const session = await getSession();
   if (!session?.user) return redirect("/login");
 
   const userData = {
@@ -27,17 +29,15 @@ export default async function CoursesPage() {
     image: session.user.image || "https://via.placeholder.com/150",
   };
 
-  const allCourses = await prisma.course.findMany({
-    orderBy: {
-      title: "asc",
-    },
-  });
+  const allCourses = await db
+    .select()
+    .from(courseTable)
+    .orderBy(asc(courseTable.title));
 
-  const progressData = await prisma.userCourseProgress.findMany({
-    where: {
-      userId: session.user.id,
-    },
-  });
+  const progressData = await db
+    .select()
+    .from(userCourseProgress)
+    .where(eq(userCourseProgress.userId, session.user.id));
 
   // Buat Map dari progress agar pencarian lebih cepat
   const progressMap = new Map(

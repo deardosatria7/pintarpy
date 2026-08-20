@@ -1,25 +1,27 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { db } from "@/db";
+import { user, userCourseProgress } from "@/db/schema";
 
 export async function deleteUserProgress(userId: string) {
-  await prisma.userCourseProgress.deleteMany({
-    where: { userId },
-  });
+  await db
+    .delete(userCourseProgress)
+    .where(eq(userCourseProgress.userId, userId));
 
   revalidatePath("/settings"); // atau path yang sesuai
 }
 
 export async function deleteUserAccount(userId: string) {
-  await prisma.userCourseProgress.deleteMany({
-    where: { userId },
-  });
+  // session & account ikut terhapus lewat ON DELETE CASCADE.
+  // Progress dihapus eksplisit supaya urutannya jelas.
+  await db
+    .delete(userCourseProgress)
+    .where(eq(userCourseProgress.userId, userId));
 
-  await prisma.user.delete({
-    where: { id: userId },
-  });
+  await db.delete(user).where(eq(user.id, userId));
 
   redirect("/");
 }

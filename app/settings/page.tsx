@@ -11,11 +11,11 @@ import { Separator } from "@/components/ui/separator";
 import { AlertTriangle, Trash2 } from "lucide-react";
 import SidebarNavigation from "@/components/sidebar-navigation";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { getSession } from "@/lib/actions/sessions";
 import DeleteActions from "./delete-button";
 
 export default async function SettingsPage() {
-  const session = await auth();
+  const session = await getSession();
   if (!session) return redirect("/login");
 
   const userData = {

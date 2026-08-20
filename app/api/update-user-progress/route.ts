@@ -1,10 +1,12 @@
-// app/api/fetch-user-data/route.ts
+// app/api/update-user-progress/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
-import prisma from "@/lib/prisma";
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db";
+import { userCourseProgress } from "@/db/schema";
+import { getUserSessionAPI } from "@/lib/actions/sessions";
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
+  const session = await getUserSessionAPI(req);
 
   if (!session || !session.user) {
     return NextResponse.json(
@@ -42,50 +44,47 @@ export async function POST(req: NextRequest) {
       status = "completed";
     }
 
+    const userId = session.user.id;
+
     // Fetch awal progress user (kalau ada)
-    const currentCourseProgress = await prisma.userCourseProgress.findUnique({
-      where: {
-        userId_courseId: {
-          userId: session.user.id!,
-          courseId,
-        },
-      },
-      select: {
-        progress: true,
-        status: true,
-      },
-    });
+    const [currentCourseProgress] = await db
+      .select({
+        progress: userCourseProgress.progress,
+        status: userCourseProgress.status,
+      })
+      .from(userCourseProgress)
+      .where(
+        and(
+          eq(userCourseProgress.userId, userId),
+          eq(userCourseProgress.courseId, courseId)
+        )
+      )
+      .limit(1);
 
     let updatedProgress;
 
     if (currentCourseProgress) {
       // Update hanya jika progress baru lebih tinggi
       if (progress > currentCourseProgress.progress) {
-        updatedProgress = await prisma.userCourseProgress.update({
-          where: {
-            userId_courseId: {
-              userId: session.user.id!,
-              courseId,
-            },
-          },
-          data: {
-            progress,
-            status,
-          },
-        });
+        [updatedProgress] = await db
+          .update(userCourseProgress)
+          .set({ progress, status })
+          .where(
+            and(
+              eq(userCourseProgress.userId, userId),
+              eq(userCourseProgress.courseId, courseId)
+            )
+          )
+          .returning();
       } else {
         updatedProgress = currentCourseProgress; // Tidak diupdate
       }
     } else {
       // Belum ada, maka buat baru
-      updatedProgress = await prisma.userCourseProgress.create({
-        data: {
-          userId: session.user.id!,
-          courseId,
-          progress,
-          status,
-        },
-      });
+      [updatedProgress] = await db
+        .insert(userCourseProgress)
+        .values({ userId, courseId, progress, status })
+        .returning();
     }
 
     return NextResponse.json(

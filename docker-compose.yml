@@ -1,0 +1,24 @@
+# App pintarpy. Postgres-nya dipakai bersama dengan finance-zenio dan
+# didefinisikan di finance-zenio/docker-compose.yml, jadi jalankan itu dulu:
+#
+#   cd ../finance-zenio && docker compose up -d db
+#   cd ../pintarpy      && docker compose up -d app
+
+services:
+  app:
+    build: .
+    container_name: pintarpy
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@shared-postgres:5432/zenio_pintarpy
+      NODE_ENV: production
+    env_file:
+      - .env
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    external: true
+    name: shared-net

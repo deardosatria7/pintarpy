@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
-import prisma from "@/lib/prisma";
+import { eq } from "drizzle-orm";
 import slugify from "slugify";
-import { Prisma } from "@prisma/client";
+import { db } from "@/db";
+import { blogPost } from "@/db/schema";
+import { getUserSessionAPI } from "@/lib/actions/sessions";
+
+// Postgres unique_violation
+const UNIQUE_VIOLATION = "23505";
+
+function isPgError(error: unknown): error is { code: string } {
+  return typeof error === "object" && error !== null && "code" in error;
+}
 
 export async function POST(req: NextRequest) {
-  const session = await auth();
+  const session = await getUserSessionAPI(req);
 
   if (!session || !session.user) {
     return NextResponse.json(
@@ -42,15 +50,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    await prisma.blogPost.create({
-      data: {
-        title,
-        slug: slugify(title, {
-          lower: true,
-        }),
-        content,
-        imgLink: imgLink || null,
-      },
+    await db.insert(blogPost).values({
+      title,
+      slug: slugify(title, {
+        lower: true,
+      }),
+      content,
+      imgLink: imgLink || null,
     });
 
     return NextResponse.json(
@@ -59,19 +65,11 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: unknown) {
     console.error("Internal server error:", error);
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2025") {
-        return NextResponse.json(
-          { message: "Record not found" },
-          { status: 404 }
-        );
-      }
-      if (error.code === "P2002") {
-        return NextResponse.json(
-          { message: "Slug must be unique" },
-          { status: 409 }
-        );
-      }
+    if (isPgError(error) && error.code === UNIQUE_VIOLATION) {
+      return NextResponse.json(
+        { message: "Slug must be unique" },
+        { status: 409 }
+      );
     }
 
     return NextResponse.json(
@@ -88,7 +86,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const session = await auth();
+  const session = await getUserSessionAPI(req);
 
   if (!session || !session.user) {
     return NextResponse.json(
@@ -125,19 +123,22 @@ export async function PUT(req: NextRequest) {
     }
 
     // Update post
-    await prisma.blogPost.update({
-      where: {
-        id,
-      },
-      data: {
+    const updated = await db
+      .update(blogPost)
+      .set({
         title,
         slug: slugify(title, {
           lower: true,
         }),
         content,
         imgLink: imgLink || null,
-      },
-    });
+      })
+      .where(eq(blogPost.id, id))
+      .returning({ id: blogPost.id });
+
+    if (updated.length === 0) {
+      return NextResponse.json({ message: "Record not found" }, { status: 404 });
+    }
 
     return NextResponse.json(
       { success: true, message: "Blog post berhasil diupdate." },
@@ -145,19 +146,11 @@ export async function PUT(req: NextRequest) {
     );
   } catch (error: unknown) {
     console.error("Internal server error:", error);
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2025") {
-        return NextResponse.json(
-          { message: "Record not found" },
-          { status: 404 }
-        );
-      }
-      if (error.code === "P2002") {
-        return NextResponse.json(
-          { message: "Slug must be unique" },
-          { status: 409 }
-        );
-      }
+    if (isPgError(error) && error.code === UNIQUE_VIOLATION) {
+      return NextResponse.json(
+        { message: "Slug must be unique" },
+        { status: 409 }
+      );
     }
 
     return NextResponse.json(

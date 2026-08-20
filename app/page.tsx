@@ -15,17 +15,17 @@ import {
   Code,
   BookOpen,
   Users,
-  LogOut,
   Settings,
   User,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { ScrollAnimation } from "@/components/animation/animation-collection";
-import { auth, signOut } from "@/auth";
+import { getSession } from "@/lib/actions/sessions";
+import LogoutMenuItem from "@/components/logout-menu-item";
 
 export default async function Home() {
-  const session = await auth();
+  const session = await getSession();
 
   const defaultCode: string = `# Selamat datang di PintarPy!
 print("Halo, Dunia Python!")
@@ -137,17 +137,7 @@ print(sapa(${
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="hover:cursor-pointer">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span
-                      onClick={async () => {
-                        "use server";
-                        await signOut();
-                      }}
-                    >
-                      Keluar
-                    </span>
-                  </DropdownMenuItem>
+                  <LogoutMenuItem />
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (

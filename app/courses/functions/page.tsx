@@ -1,21 +1,26 @@
-import prisma from "@/lib/prisma";
-import { auth } from "@/auth";
+import { and, eq } from "drizzle-orm";
+import { db } from "@/db";
+import { userCourseProgress } from "@/db/schema";
+import { getSession } from "@/lib/actions/sessions";
 import { redirect } from "next/navigation";
 import FunctionsContent from "./content";
 
 export default async function FunctionsPage() {
-  const session = await auth();
+  const session = await getSession();
   if (!session?.user) return redirect("/login");
 
   // Check if the user is enrolled in the course
   const userId = session.user.id;
   const courseId = "cm9b0ic7d0003txs8xg8ziq6b"; // Replace with the actual course ID
-  const currentUserCourses = await prisma.userCourseProgress.findMany({
-    where: {
-      userId,
-      courseId,
-    },
-  });
+  const currentUserCourses = await db
+    .select()
+    .from(userCourseProgress)
+    .where(
+      and(
+        eq(userCourseProgress.userId, userId),
+        eq(userCourseProgress.courseId, courseId)
+      )
+    );
 
   if (
     currentUserCourses[0]?.status != "in_progress" &&

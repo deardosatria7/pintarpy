@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { getSession } from "@/lib/actions/sessions";
 import { redirect } from "next/navigation";
 import TerminalContent from "./content";
 import { AlertCircle } from "lucide-react";
@@ -8,7 +8,7 @@ export default async function TerminalPage({
 }: {
   searchParams?: Promise<{ code: string }>;
 }) {
-  const session = await auth();
+  const session = await getSession();
   if (!session?.user) return redirect("/login");
 
   // tunggu promise (demo penggunaan Promise)
