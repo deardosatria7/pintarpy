@@ -8,8 +8,10 @@ services:
   app:
     build: .
     container_name: pintarpy
+    # Hanya loopback: cloudflared (service di host) bisa menjangkau,
+    # tapi port tidak terbuka ke jaringan luar.
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
       DATABASE_URL: postgresql://postgres:postgres@shared-postgres:5432/zenio_pintarpy
       NODE_ENV: production
