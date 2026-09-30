@@ -13,10 +13,13 @@ export const auth = betterAuth({
       account,
     },
   }),
-  // Dibuka supaya akun yang dibuat lewat finance-zenio (email/password)
-  // juga bisa dipakai login di pintarpy — tabel user-nya sama.
+  // Login email/password dibuka supaya akun finance-zenio bisa dipakai di sini (tabel user-nya
+  // sama), tapi daftarnya ditutup: email tidak diverifikasi, jadi siapa pun bisa mendaftar dengan
+  // email orang lain lalu ikut masuk setelah pemiliknya login Google/GitHub (auto-link).
+  // Harus sama dengan finance-zenio.
   emailAndPassword: {
     enabled: true,
+    disableSignUp: true,
   },
   socialProviders: {
     google: {
